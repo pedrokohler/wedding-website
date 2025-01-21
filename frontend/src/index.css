@@ -1,0 +1,36 @@
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  background-image: url("./assets/bg-site.png");
+  background-repeat: repeat-y;
+  background-position: center;
+  background-size: 100%;
+  /* @media only screen and (max-width: 600px) {
+    background-size: 100%;
+  } */
+}
+
+@font-face {
+  font-family: slight;
+  src: url("./assets/Slight-Regular.ttf");
+}
+
+@font-face {
+  font-family: Fraunces;
+  src: url("./assets/Fraunces_72pt-Regular.ttf");
+}
+
+#root {
+  margin: 0 auto;
+  text-align: center;
+  box-sizing: border-box;
+  color: #a47124;
+  /* color: "#1b4a92"; */
+  /* font-family: slight; */
+}
