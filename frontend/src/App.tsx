@@ -1,20 +1,11 @@
-import { useState } from "react";
-import monograma from "./assets/monograma.png";
+import { CounterSection } from "./Components/Counter";
+import { HeroSection } from "./Components/HeroSection";
 
 function App() {
   return (
     <>
-      {/* <img src={monograma} style={{ width: "200px", height: "200px" }} /> */}
-      <div
-        style={{
-          margin: "2em",
-          boxSizing: "border-box",
-        }}
-      >
-        <div style={{ fontFamily: "slight", fontSize: "3em" }}>
-          Winny & Pedro
-        </div>
-      </div>
+      <HeroSection />
+      <CounterSection />
     </>
   );
 }
