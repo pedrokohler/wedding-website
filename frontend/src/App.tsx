@@ -2,6 +2,7 @@ import { Stack } from "react-bootstrap";
 import { CountdownSection } from "./Components/CountdownSection";
 import { HeroSection } from "./Components/HeroSection";
 import { AboutSection } from "./Components/AboutSection";
+import { LocationsSection } from "./Components/LocationsSections";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
         <HeroSection />
         <CountdownSection />
         <AboutSection />
+        <LocationsSection />
       </Stack>
     </>
   );
