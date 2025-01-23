@@ -3,14 +3,14 @@ import { Countdown } from "./Countdown";
 import { useMediaQuery } from "../hooks/useMediaQuery";
 
 export const CountdownSection = () => {
-  const { isAbove750w } = useMediaQuery();
+  const { isAbove750w, isAbove1000w } = useMediaQuery();
   return (
     <Stack
       gap={5}
       style={{
         height: "fit-content",
         width: "100%",
-        padding: isAbove750w ? "64px" : "32px",
+        padding: isAbove1000w ? "0 128px" : isAbove750w ? "0 64px" : "0 32px",
       }}
     >
       <h2>CONTAGEM REGRESSIVA PARA O GRANDE DIA</h2>
