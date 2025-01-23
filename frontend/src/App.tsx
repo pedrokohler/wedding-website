@@ -1,11 +1,14 @@
-import { CounterSection } from "./Components/Counter";
+import { Stack } from "react-bootstrap";
+import { CountdownSection } from "./Components/CountdownSection";
 import { HeroSection } from "./Components/HeroSection";
 
 function App() {
   return (
     <>
-      <HeroSection />
-      <CounterSection />
+      <Stack gap={2}>
+        <HeroSection />
+        <CountdownSection />
+      </Stack>
     </>
   );
 }

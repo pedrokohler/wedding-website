@@ -1,19 +1,12 @@
-import { useState, useEffect } from "react";
 import Stack from "react-bootstrap/Stack";
 import HeroBackground from "../assets/bg-hero.png";
 import HeroSignature from "../assets/signature-hero.png";
+import { useMediaQuery } from "../hooks/useMediaQuery";
 
 export const HeroSection = () => {
-  const mediaMatch = window.matchMedia("(min-width: 500px)");
-  const [matches, setMatches] = useState(mediaMatch.matches);
+  const { isAbove500w } = useMediaQuery();
 
-  useEffect(() => {
-    const handler = (e: any) => setMatches(e.matches);
-    mediaMatch.addListener(handler);
-    return () => mediaMatch.removeListener(handler);
-  }, [setMatches, mediaMatch]);
-
-  const heroSignatureSizingStyles = matches
+  const heroSignatureSizingStyles = isAbove500w
     ? {
         left: "35%",
         top: "10%",
