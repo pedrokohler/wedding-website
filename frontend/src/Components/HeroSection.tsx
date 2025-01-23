@@ -13,23 +13,23 @@ export const HeroSection = () => {
         width: "30%",
       }
     : {
-        left: "35%",
-        top: "5%",
-        width: "30%",
+        left: "22%",
+        top: "20%",
+        width: "60%",
       };
 
   return (
     <Stack
       style={{
-        height: "fit-content",
-        width: "fit-content",
+        height: "110vh",
+        width: "100vw",
       }}
     >
       <img
         src={HeroBackground}
         style={{
           height: "100%",
-          width: "100%",
+          objectFit: "cover",
         }}
       />
       <img

@@ -83,12 +83,12 @@ export const LocationsSection = () => {
         height: "fit-content",
         width: "100%",
         padding: isAbove1000w
-          ? "128px 256px"
+          ? "96px 256px"
           : isAbove750w
-          ? "128px 128px"
+          ? "96px 128px"
           : isAbove500w
-          ? "128px 0"
-          : "128px 0",
+          ? "96px 0"
+          : "96px 0",
       }}
     >
       <div
