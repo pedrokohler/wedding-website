@@ -25,6 +25,8 @@ export const AboutSection = () => {
       <div
         style={{
           color: "black",
+          maxWidth: "80%",
+          alignSelf: "center",
         }}
       >
         Donec dignissim et libero sed congue. Cras sit amet vestibulum diam.

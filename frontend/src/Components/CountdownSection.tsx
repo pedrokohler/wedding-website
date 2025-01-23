@@ -13,11 +13,20 @@ export const CountdownSection = () => {
         padding: isAbove1000w ? "0 128px" : isAbove750w ? "0 64px" : "0 32px",
       }}
     >
-      <h2>CONTAGEM REGRESSIVA PARA O GRANDE DIA</h2>
+      <h2
+        style={{
+          maxWidth: "80%",
+          alignSelf: "center",
+        }}
+      >
+        CONTAGEM REGRESSIVA PARA O GRANDE DIA
+      </h2>
       <Countdown />
       <h2
         style={{
           color: "black",
+          maxWidth: "80%",
+          alignSelf: "center",
         }}
       >
         Trinta e um de maio de dois mil e vinte e cinco, às quinze horas
