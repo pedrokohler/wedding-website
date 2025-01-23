@@ -97,6 +97,7 @@ export const LocationsSection = () => {
           zIndex: -1,
           alignSelf: "center",
           maxWidth: "70%",
+          marginLeft: "20px",
         }}
       >
         <img
