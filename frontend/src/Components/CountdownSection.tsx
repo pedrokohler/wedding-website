@@ -14,7 +14,7 @@ export const CountdownSection = () => {
           ? "64px 128px"
           : isAbove750w
           ? "64px 64px"
-          : "64px 32px",
+          : "32px 32px",
       }}
     >
       <h2

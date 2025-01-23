@@ -15,7 +15,7 @@ export const AboutSection = () => {
           ? "64px 256px"
           : isAbove750w
           ? "64px 128px"
-          : "64px 64px",
+          : "32px 64px",
       }}
     >
       <div>
