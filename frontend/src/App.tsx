@@ -4,6 +4,7 @@ import { HeroSection } from "./Components/HeroSection";
 import { AboutSection } from "./Components/AboutSection";
 import { LocationsSection } from "./Components/LocationsSections";
 import { RSVPSection } from "./Components/RSVPSection";
+import { GiftsSection } from "./Components/GiftsSections";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <AboutSection />
         <LocationsSection />
         <RSVPSection />
+        <GiftsSection />
       </Stack>
     </>
   );

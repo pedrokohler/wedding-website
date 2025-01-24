@@ -33,7 +33,7 @@ export const CountdownSection = () => {
           alignSelf: "center",
         }}
       >
-        Trinta e um de maio de dois mil e vinte e cinco, às quinze horas
+        31 de maio de 2025, às 15:00 em ponto
       </h2>
     </Stack>
   );
