@@ -1,6 +1,6 @@
 import Stack from "react-bootstrap/Stack";
 import { useMediaQuery } from "../hooks/useMediaQuery";
-import BirdsSeparator from "../assets/separador1.png";
+import BirdsSeparator from "../assets/separador1.svg";
 import { PageSeparator } from "./PageSeparator";
 
 export const AboutSection = () => {

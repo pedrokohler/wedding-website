@@ -1,6 +1,6 @@
 import Stack from "react-bootstrap/Stack";
 import { useMediaQuery } from "../hooks/useMediaQuery";
-import Church from "../assets/igreja.png";
+import Church from "../assets/igreja.svg";
 import { Col, Row } from "react-bootstrap";
 
 const Address = ({

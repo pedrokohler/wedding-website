@@ -1,7 +1,7 @@
 import Stack from "react-bootstrap/Stack";
 import { PageSeparator } from "./PageSeparator";
 import { useMediaQuery } from "../hooks/useMediaQuery";
-import LeafSeparator from "../assets/separador4.png";
+import LeafSeparator from "../assets/separador4.svg";
 import { RSVPForm } from "./RSVPForm";
 
 export const RSVPSection = () => {
