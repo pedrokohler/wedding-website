@@ -1,10 +1,11 @@
 import Stack from "react-bootstrap/Stack";
-import { TextInput } from "./TextInput";
-import { useMediaQuery } from "../hooks/useMediaQuery";
 import { DashCircle, PlusCircle, Icon } from "react-bootstrap-icons";
+import Button from "react-bootstrap/esm/Button";
+import { useMediaQuery } from "usehooks-ts";
+
+import { TextInput } from "./TextInput";
 import { NumberInput } from "./NumberInput";
 import { TelephoneInput } from "./TelephoneInput";
-import Button from "react-bootstrap/esm/Button";
 
 const IconButton = ({ icon: IconComponent }: { icon: Icon }) => {
   return (
@@ -41,7 +42,8 @@ const ChildrenInput = () => {
 };
 
 export const RSVPForm = () => {
-  const { isAbove500w, isAbove750w } = useMediaQuery();
+  const isAbove500w = useMediaQuery("(min-width: 500px)");
+  const isAbove750w = useMediaQuery("(min-width: 750px)");
 
   return (
     <Stack

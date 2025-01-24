@@ -1,10 +1,12 @@
 import Stack from "react-bootstrap/Stack";
-import { useMediaQuery } from "../hooks/useMediaQuery";
+import { useMediaQuery } from "usehooks-ts";
+
 import FlowerSeparator from "../assets/separador2.svg";
 import { PageSeparator } from "./PageSeparator";
 
 export const GiftsSection = () => {
-  const { isAbove750w, isAbove1000w } = useMediaQuery();
+  const isAbove750w = useMediaQuery("(min-width: 750px)");
+  const isAbove1000w = useMediaQuery("(min-width: 1000px)");
 
   return (
     <Stack

@@ -1,5 +1,6 @@
 import Stack from "react-bootstrap/Stack";
-import { useMediaQuery } from "../hooks/useMediaQuery";
+// import { useMediaQuery } from "../hooks/useMediaQuery";
+import { useMediaQuery } from "usehooks-ts";
 import Church from "../assets/igreja.svg";
 import { Col, Row } from "react-bootstrap";
 
@@ -74,7 +75,9 @@ const TwoColumnsLocationSection = () => {
 };
 
 export const LocationsSection = () => {
-  const { isAbove750w, isAbove1000w, isAbove500w } = useMediaQuery();
+  const isAbove500w = useMediaQuery("(min-width: 500px)");
+  const isAbove750w = useMediaQuery("(min-width: 750px)");
+  const isAbove1000w = useMediaQuery("(min-width: 1000px)");
 
   return (
     <Stack

@@ -1,9 +1,11 @@
 import Stack from "react-bootstrap/Stack";
 import { Countdown } from "./Countdown";
-import { useMediaQuery } from "../hooks/useMediaQuery";
+import { useMediaQuery } from "usehooks-ts";
 
 export const CountdownSection = () => {
-  const { isAbove750w, isAbove1000w } = useMediaQuery();
+  const isAbove750w = useMediaQuery("(min-width: 750px)");
+  const isAbove1000w = useMediaQuery("(min-width: 1000px)");
+
   return (
     <Stack
       gap={5}

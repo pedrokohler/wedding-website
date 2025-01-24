@@ -1,11 +1,13 @@
 import Stack from "react-bootstrap/Stack";
+import { useMediaQuery } from "usehooks-ts";
+
 import { PageSeparator } from "./PageSeparator";
-import { useMediaQuery } from "../hooks/useMediaQuery";
 import LeafSeparator from "../assets/separador4.svg";
 import { RSVPForm } from "./RSVPForm";
 
 export const RSVPSection = () => {
-  const { isAbove750w, isAbove1000w } = useMediaQuery();
+  const isAbove750w = useMediaQuery("(min-width: 750px)");
+  const isAbove1000w = useMediaQuery("(min-width: 1000px)");
 
   return (
     <Stack

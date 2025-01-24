@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Stack from "react-bootstrap/Stack";
 import Container from "react-bootstrap/Container";
 import { Col, Row } from "react-bootstrap";
-import { useMediaQuery } from "../hooks/useMediaQuery";
+import { useMediaQuery } from "usehooks-ts";
 
 function dateDiff(a: Date, b: Date) {
   const _MS_PER_DAY = 1000 * 60 * 60 * 24;
@@ -49,7 +49,9 @@ function dateDiff(a: Date, b: Date) {
 
 export const Countdown = () => {
   const [counterValues, setCounterValues] = useState(["0", "0", "0", "0"]);
-  const { isAbove500w, isAbove750w, isAbove1000w } = useMediaQuery();
+  const isAbove500w = useMediaQuery("(min-width: 500px)");
+  const isAbove750w = useMediaQuery("(min-width: 750px)");
+  const isAbove1000w = useMediaQuery("(min-width: 1000px)");
 
   useEffect(() => {
     const finalDate = new Date("2025/05/31 15:00:00 GMT-0300");
@@ -99,7 +101,7 @@ const CounterColumn = ({
   textAbove: string;
   textBelow: string;
 }) => {
-  const { isAbove500w } = useMediaQuery();
+  const isAbove500w = useMediaQuery("(min-width: 500px)");
 
   const firstRowSizingStyles = isAbove500w
     ? {
