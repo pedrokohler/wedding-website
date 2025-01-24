@@ -1,6 +1,7 @@
 import Stack from "react-bootstrap/Stack";
 import { useMediaQuery } from "../hooks/useMediaQuery";
 import BirdsSeparator from "../assets/separador1.png";
+import { PageSeparator } from "./PageSeparator";
 
 export const AboutSection = () => {
   const { isAbove750w, isAbove1000w } = useMediaQuery();
@@ -14,13 +15,11 @@ export const AboutSection = () => {
         padding: isAbove1000w
           ? "64px 256px"
           : isAbove750w
-          ? "64px 128px"
+          ? "32px 128px"
           : "32px 64px",
       }}
     >
-      <div>
-        <img src={BirdsSeparator} />
-      </div>
+      <PageSeparator icon={BirdsSeparator} />
       <h2>SOBRE OS NOIVOS</h2>
       <div
         style={{
@@ -29,12 +28,12 @@ export const AboutSection = () => {
           alignSelf: "center",
         }}
       >
-        Donec dignissim et libero sed congue. Cras sit amet vestibulum diam.
-        Etiam ut varius turpis. Proin luctus efficitur mi, nec sollicitudin
-        tellus tincidunt sed. Phasellus id ante lectus. Cras tempus augue a
-        dignissim ultrices. Etiam a efficitur metus, quis porttitor purus.
-        Mauris in lectus non dolor ultrices cursus ac et nunc. Pellentesque ac
-        lectus vel nisi tincidunt condimentum ac a risus.
+        Winny e Pedro descobriram na fé, no cuidado e na amizade a base do amor
+        que construíram. Abençoados por essa união, compartilham sonhos, risos e
+        até receitas novas com cumplicidade. Ele a protege de forma tão natural
+        quanto ela o admira com carinho. Agora, se preparam para o próximo
+        capítulo dessa história, com o coração cheio de gratidão e esperança no
+        que está por vir.
       </div>
     </Stack>
   );

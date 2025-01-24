@@ -45,3 +45,32 @@ h6 {
   /* color: "#1b4a92"; */
   font-family: Fraunces;
 }
+
+.form-control {
+  border-color: #1b4a92 !important;
+}
+
+.icon-button:hover {
+  color: #a47124;
+  cursor: pointer;
+}
+
+.icon-button:active {
+  color: #1b4a92;
+}
+
+.icon-button {
+  color: #1b4a92;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}

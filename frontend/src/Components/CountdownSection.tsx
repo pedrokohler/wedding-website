@@ -13,7 +13,7 @@ export const CountdownSection = () => {
         padding: isAbove1000w
           ? "64px 128px"
           : isAbove750w
-          ? "64px 64px"
+          ? "32px 64px"
           : "32px 32px",
       }}
     >

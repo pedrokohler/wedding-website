@@ -87,7 +87,7 @@ export const LocationsSection = () => {
           : isAbove750w
           ? "96px 128px"
           : isAbove500w
-          ? "96px 0"
+          ? "48px 0"
           : "48px 0",
       }}
     >

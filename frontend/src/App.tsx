@@ -3,6 +3,7 @@ import { CountdownSection } from "./Components/CountdownSection";
 import { HeroSection } from "./Components/HeroSection";
 import { AboutSection } from "./Components/AboutSection";
 import { LocationsSection } from "./Components/LocationsSections";
+import { RSVPSection } from "./Components/RSVPSection";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <CountdownSection />
         <AboutSection />
         <LocationsSection />
+        <RSVPSection />
       </Stack>
     </>
   );
