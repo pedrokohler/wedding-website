@@ -65,6 +65,7 @@ function GiftGrid() {
             style={{
               margin: "16px 0",
             }}
+            key={product.name}
           >
             <GiftCard product={product} onClick={() => {}} />
           </Col>

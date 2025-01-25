@@ -5,8 +5,10 @@ import FlowerSeparator from "../../assets/separador2.svg";
 import { PageSeparator } from "../PageSeparator";
 import GiftGrid from "../GiftGrid";
 import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export const GiftsSection = () => {
+  const navigate = useNavigate();
   const isAbove500w = useMediaQuery("(min-width: 500px)");
   const isAbove750w = useMediaQuery("(min-width: 750px)");
   const isAbove1000w = useMediaQuery("(min-width: 1000px)");
@@ -46,6 +48,7 @@ export const GiftsSection = () => {
           width: isAbove750w ? "420px" : isAbove500w ? "300px" : "90%",
         }}
         size="lg"
+        onClick={() => navigate("/presentes")}
       >
         VER LISTA
       </Button>
