@@ -5,6 +5,7 @@ import { AboutSection } from "./Components/Sections/AboutSection";
 import { LocationsSection } from "./Components/Sections/LocationsSection";
 import { RSVPSection } from "./Components/Sections/RSVP/RSVPSection";
 import { GiftsSection } from "./Components/Sections/GiftsSection";
+import { MessageSection } from "./Components/Sections/Message/MessageSection";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <LocationsSection />
         <RSVPSection />
         <GiftsSection />
+        <MessageSection />
       </Stack>
     </>
   );
