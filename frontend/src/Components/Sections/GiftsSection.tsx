@@ -3,6 +3,7 @@ import { useMediaQuery } from "usehooks-ts";
 
 import FlowerSeparator from "../../assets/separador2.svg";
 import { PageSeparator } from "../PageSeparator";
+import GiftGrid from "../GiftGrid";
 
 export const GiftsSection = () => {
   const isAbove750w = useMediaQuery("(min-width: 750px)");
@@ -34,6 +35,7 @@ export const GiftsSection = () => {
         Etiam ut varius turpis. Proin luctus efficitur mi, nec sollicitudin
         tellus tincidunt sed.
       </div>
+      <GiftGrid />
     </Stack>
   );
 };

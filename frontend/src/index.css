@@ -13,10 +13,6 @@ body {
   background-size: 100%;
   scrollbar-gutter: stable;
   overflow-x: hidden;
-
-  /* @media only screen and (max-width: 600px) {
-    background-size: 100%;
-  } */
 }
 
 @font-face {
