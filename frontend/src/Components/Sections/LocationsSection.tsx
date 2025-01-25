@@ -17,7 +17,7 @@ const Address = ({
 }) => {
   return (
     <Stack>
-      <h2>{eventName}</h2>
+      <h2 className="text-gold">{eventName}</h2>
       <h5 style={{ color: "black", fontWeight: "bold" }}>{locationName}</h5>
       <p style={{ color: "black" }}>{firstLine}</p>
       <p style={{ color: "black" }}>{secondLine}</p>

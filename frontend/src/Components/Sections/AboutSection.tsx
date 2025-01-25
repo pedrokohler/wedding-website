@@ -22,7 +22,7 @@ export const AboutSection = () => {
       }}
     >
       <PageSeparator icon={BirdsSeparator} />
-      <h2>SOBRE OS NOIVOS</h2>
+      <h2 className="text-gold">SOBRE OS NOIVOS</h2>
       <div
         style={{
           color: "black",

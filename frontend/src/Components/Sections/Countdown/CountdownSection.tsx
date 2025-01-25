@@ -21,6 +21,7 @@ export const CountdownSection = () => {
       }}
     >
       <h2
+        className="text-gold"
         style={{
           maxWidth: "80%",
           alignSelf: "center",
@@ -31,7 +32,6 @@ export const CountdownSection = () => {
       <Countdown />
       <h2
         style={{
-          color: "black",
           maxWidth: "80%",
           alignSelf: "center",
         }}

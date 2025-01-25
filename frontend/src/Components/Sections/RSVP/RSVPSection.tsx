@@ -24,7 +24,7 @@ export const RSVPSection = () => {
       }}
     >
       {isAbove1000w ? <></> : <PageSeparator icon={LeafSeparator} />}
-      <h2>CONFIRMAR PRESENÇA</h2>
+      <h2 className="text-gold">CONFIRMAR PRESENÇA</h2>
       <div
         style={{
           color: "black",

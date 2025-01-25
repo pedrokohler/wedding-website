@@ -38,14 +38,17 @@ h4,
 h5,
 h6 {
   margin: 0 !important;
-  color: "black";
+}
+
+.text-gold {
+  color: #a47124;
 }
 
 #root {
   margin: 0 auto;
   text-align: center;
   box-sizing: border-box;
-  color: #a47124;
+  color: black;
   /* color: "#1b4a92"; */
   font-family: Fraunces;
 }
@@ -86,4 +89,22 @@ input[type="number"] {
   min-width: fit-content;
   font-size: medium;
   height: 50px;
+}
+
+.btn.btn-secondary {
+  background-color: #a47124;
+  border-color: #a47124;
+  min-width: fit-content;
+  margin-top: 16px;
+
+  &:hover,
+  &:focus {
+    background-color: #c6903f;
+    border-color: #a47124;
+  }
+
+  &:active {
+    background-color: #d08c27 !important;
+    border-color: #a47124;
+  }
 }

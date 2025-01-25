@@ -48,12 +48,16 @@ function GiftCard({
         </Card.Title>
         <Card.Text>{product.description}</Card.Text>
         <Button
+          variant="secondary"
           style={{
-            backgroundColor: "#a47124",
-            borderColor: "#a47124",
             width: "40%",
-            minWidth: "fit-content",
-            marginTop: "16px",
+            // backgroundColor: "#a47124",
+            // borderColor: "#a47124",
+            // minWidth: "fit-content",
+            // marginTop: "16px",
+            // "&:hover": {
+            //   background: "#efefef",
+            // },
           }}
           onClick={onClick}
         >

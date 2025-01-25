@@ -23,7 +23,7 @@ export const MessageSection = () => {
       }}
     >
       <PageSeparator icon={FlowerSeparator} />
-      <h2>MENSAGEM PARA OS NOIVOS</h2>
+      <h2 className="text-gold">MENSAGEM PARA OS NOIVOS</h2>
       <MessageForm />
     </Stack>
   );
