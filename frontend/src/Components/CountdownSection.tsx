@@ -3,8 +3,8 @@ import { Countdown } from "./Countdown";
 import { useMediaQuery } from "usehooks-ts";
 
 export const CountdownSection = () => {
-  const isAbove750w = useMediaQuery("(min-width: 750px)");
-  const isAbove1000w = useMediaQuery("(min-width: 1000px)");
+  const isAbove770w = useMediaQuery("(min-width: 770px)");
+  const isAbove1080w = useMediaQuery("(min-width: 1080px)");
 
   return (
     <Stack
@@ -12,9 +12,9 @@ export const CountdownSection = () => {
       style={{
         height: "fit-content",
         width: "100%",
-        padding: isAbove1000w
+        padding: isAbove1080w
           ? "64px 128px"
-          : isAbove750w
+          : isAbove770w
           ? "32px 64px"
           : "32px 32px",
       }}

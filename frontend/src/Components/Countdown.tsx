@@ -49,9 +49,9 @@ function dateDiff(a: Date, b: Date) {
 
 export const Countdown = () => {
   const [counterValues, setCounterValues] = useState(["0", "0", "0", "0"]);
-  const isAbove500w = useMediaQuery("(min-width: 500px)");
-  const isAbove750w = useMediaQuery("(min-width: 750px)");
-  const isAbove1000w = useMediaQuery("(min-width: 1000px)");
+  const isAbove500w = useMediaQuery("(min-width: 550px)");
+  const isAbove750w = useMediaQuery("(min-width: 770px)");
+  const isAbove1000w = useMediaQuery("(min-width: 1080px)");
 
   useEffect(() => {
     const finalDate = new Date("2025/05/31 15:00:00 GMT-0300");
