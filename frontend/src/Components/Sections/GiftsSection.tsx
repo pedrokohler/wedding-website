@@ -4,8 +4,10 @@ import { useMediaQuery } from "usehooks-ts";
 import FlowerSeparator from "../../assets/separador2.svg";
 import { PageSeparator } from "../PageSeparator";
 import GiftGrid from "../GiftGrid";
+import { Button } from "react-bootstrap";
 
 export const GiftsSection = () => {
+  const isAbove500w = useMediaQuery("(min-width: 500px)");
   const isAbove750w = useMediaQuery("(min-width: 750px)");
   const isAbove1000w = useMediaQuery("(min-width: 1000px)");
 
@@ -16,8 +18,10 @@ export const GiftsSection = () => {
         height: "fit-content",
         width: "100%",
         padding: isAbove1000w
-          ? "64px 256px"
+          ? "32px 196px"
           : isAbove750w
+          ? "32px 154px"
+          : isAbove500w
           ? "32px 128px"
           : "32px 64px",
       }}
@@ -36,6 +40,15 @@ export const GiftsSection = () => {
         tellus tincidunt sed.
       </div>
       <GiftGrid />
+      <Button
+        style={{
+          alignSelf: "center",
+          width: isAbove750w ? "420px" : isAbove500w ? "300px" : "90%",
+        }}
+        size="lg"
+      >
+        VER LISTA
+      </Button>
     </Stack>
   );
 };

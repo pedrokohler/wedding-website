@@ -64,7 +64,6 @@ function GiftGrid() {
             lg={4}
             style={{
               margin: "16px 0",
-              maxWidth: "80%",
             }}
           >
             <GiftCard product={product} onClick={() => {}} />
