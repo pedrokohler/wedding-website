@@ -1,8 +1,8 @@
 import Stack from "react-bootstrap/Stack";
 import { useMediaQuery } from "usehooks-ts";
 
-import HeroBackground from "../assets/bg-hero.png";
-import HeroSignature from "../assets/signature-hero.png";
+import HeroBackground from "../../assets/bg-hero.png";
+import HeroSignature from "../../assets/signature-hero.png";
 
 export const HeroSection = () => {
   const isAbove500w = useMediaQuery("(min-width: 500px)");

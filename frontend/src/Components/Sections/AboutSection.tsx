@@ -1,8 +1,8 @@
 import Stack from "react-bootstrap/Stack";
 import { useMediaQuery } from "usehooks-ts";
 
-import BirdsSeparator from "../assets/separador1.svg";
-import { PageSeparator } from "./PageSeparator";
+import BirdsSeparator from "../../assets/separador1.svg";
+import { PageSeparator } from "../PageSeparator";
 
 export const AboutSection = () => {
   const isAbove750w = useMediaQuery("(min-width: 750px)");

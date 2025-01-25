@@ -1,6 +1,7 @@
 import Stack from "react-bootstrap/Stack";
-import { Countdown } from "./Countdown";
 import { useMediaQuery } from "usehooks-ts";
+
+import { Countdown } from "./Countdown";
 
 export const CountdownSection = () => {
   const isAbove770w = useMediaQuery("(min-width: 770px)");

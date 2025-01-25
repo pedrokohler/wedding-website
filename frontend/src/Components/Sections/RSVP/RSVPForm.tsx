@@ -3,9 +3,9 @@ import { DashCircle, PlusCircle, Icon } from "react-bootstrap-icons";
 import Button from "react-bootstrap/esm/Button";
 import { useMediaQuery } from "usehooks-ts";
 
-import { TextInput } from "./TextInput";
-import { NumberInput } from "./NumberInput";
-import { TelephoneInput } from "./TelephoneInput";
+import { TextInput } from "../../TextInput";
+import { NumberInput } from "../../NumberInput";
+import { TelephoneInput } from "../../TelephoneInput";
 
 const IconButton = ({ icon: IconComponent }: { icon: Icon }) => {
   return (

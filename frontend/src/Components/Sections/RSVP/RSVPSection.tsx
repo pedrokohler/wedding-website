@@ -1,10 +1,11 @@
 import Stack from "react-bootstrap/Stack";
 import { useMediaQuery } from "usehooks-ts";
 
-import FlowerSeparator from "../assets/separador2.svg";
-import { PageSeparator } from "./PageSeparator";
+import { PageSeparator } from "../../PageSeparator";
+import LeafSeparator from "../../../assets/separador4.svg";
+import { RSVPForm } from "./RSVPForm";
 
-export const GiftsSection = () => {
+export const RSVPSection = () => {
   const isAbove750w = useMediaQuery("(min-width: 750px)");
   const isAbove1000w = useMediaQuery("(min-width: 1000px)");
 
@@ -14,15 +15,16 @@ export const GiftsSection = () => {
       style={{
         height: "fit-content",
         width: "100%",
+        boxSizing: "border-box",
         padding: isAbove1000w
-          ? "64px 256px"
+          ? "256px 32px 32px 32px"
           : isAbove750w
           ? "32px 128px"
           : "32px 64px",
       }}
     >
-      <PageSeparator icon={FlowerSeparator} />
-      <h2>LISTA DE PRESENTES</h2>
+      {isAbove1000w ? <></> : <PageSeparator icon={LeafSeparator} />}
+      <h2>CONFIRMAR PRESENÇA</h2>
       <div
         style={{
           color: "black",
@@ -34,6 +36,7 @@ export const GiftsSection = () => {
         Etiam ut varius turpis. Proin luctus efficitur mi, nec sollicitudin
         tellus tincidunt sed.
       </div>
+      <RSVPForm />
     </Stack>
   );
 };

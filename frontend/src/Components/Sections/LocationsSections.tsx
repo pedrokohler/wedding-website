@@ -1,8 +1,8 @@
 import Stack from "react-bootstrap/Stack";
-// import { useMediaQuery } from "../hooks/useMediaQuery";
-import { useMediaQuery } from "usehooks-ts";
-import Church from "../assets/igreja.svg";
 import { Col, Row } from "react-bootstrap";
+import { useMediaQuery } from "usehooks-ts";
+
+import Church from "../../assets/igreja.svg";
 
 const Address = ({
   eventName,
