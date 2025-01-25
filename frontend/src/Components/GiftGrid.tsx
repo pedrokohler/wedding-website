@@ -1,9 +1,13 @@
+import { useState } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+
 import GiftCard, { GiftCardProduct } from "./GiftCard";
+import { GiftModal } from "./GiftModal";
 
 function GiftGrid({ products }: { products: GiftCardProduct[] }) {
+  const [modalShow, setModalShow] = useState(false);
   return (
     <Container fluid>
       <Row
@@ -22,10 +26,11 @@ function GiftGrid({ products }: { products: GiftCardProduct[] }) {
             }}
             key={product.name}
           >
-            <GiftCard product={product} onClick={() => {}} />
+            <GiftCard product={product} onClick={() => setModalShow(true)} />
           </Col>
         ))}
       </Row>
+      <GiftModal show={modalShow} onHide={() => setModalShow(false)} />
     </Container>
   );
 }
