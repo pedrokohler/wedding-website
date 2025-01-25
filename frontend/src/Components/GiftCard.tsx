@@ -38,6 +38,7 @@ function GiftCard({
             display: "flex",
             flexDirection: "column",
             justifyContent: "space-between",
+            marginBottom: "16px",
           }}
         >
           <div>{product.name}</div>
@@ -52,6 +53,7 @@ function GiftCard({
             borderColor: "#a47124",
             width: "40%",
             minWidth: "fit-content",
+            marginTop: "16px",
           }}
           onClick={onClick}
         >
