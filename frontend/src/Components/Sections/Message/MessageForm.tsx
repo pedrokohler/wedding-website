@@ -25,7 +25,6 @@ export const MessageForm = () => {
           width: "38%",
           alignSelf: "flex-end",
         }}
-        size="lg"
       >
         ENVIAR
       </Button>

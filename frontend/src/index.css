@@ -29,6 +29,11 @@ body {
   src: url("./assets/Fraunces_72pt-Regular.ttf");
 }
 
+@font-face {
+  font-family: Inter;
+  src: url("./assets/Inter_28pt-Regular.ttf");
+}
+
 p,
 h1,
 h2,
@@ -76,4 +81,13 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+.btn.btn-primary {
+  font-family: Inter;
+  font-weight: 600;
+  background-color: #1b4a92;
+  min-width: fit-content;
+  font-size: medium;
+  height: 50px;
 }

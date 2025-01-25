@@ -54,17 +54,11 @@ export const RSVPForm = () => {
       }}
       gap={2}
     >
-      <TextInput id={"name"} placeholder={"Nome"}></TextInput>
-      <TextInput id={"plusOne"} placeholder={"Acompanhante"}></TextInput>
+      <TextInput id={"name"} placeholder={"Nome"} />
+      <TextInput id={"plusOne"} placeholder={"Acompanhante"} />
       <ChildrenInput />
       <TelephoneInput id={"phone"} placeholder="(31) 98888-8888" />
-      <Button
-        style={{
-          backgroundColor: "#1b4a92",
-        }}
-      >
-        Confirmar
-      </Button>
+      <Button size="lg">CONFIRMAR</Button>
     </Stack>
   );
 };
