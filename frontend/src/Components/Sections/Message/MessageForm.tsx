@@ -4,8 +4,10 @@ import { useMediaQuery } from "usehooks-ts";
 
 import { TextInput } from "../../TextInput";
 import { TextArea } from "../../TextArea";
+import { useState } from "react";
 
 export const MessageForm = () => {
+  const [message, setMessage] = useState("");
   const isAbove500w = useMediaQuery("(min-width: 500px)");
   const isAbove750w = useMediaQuery("(min-width: 750px)");
 
@@ -18,7 +20,14 @@ export const MessageForm = () => {
       }}
       gap={2}
     >
-      <TextArea id={"message"} placeholder={"Escreva uma mensagem"} />
+      <TextArea
+        id={"message"}
+        placeholder={"Escreva uma mensagem"}
+        value={message}
+        onChange={(e) => {
+          setMessage(e.target.value);
+        }}
+      />
       <TextInput id={"name"} placeholder={"Nome"} />
       <Button
         style={{

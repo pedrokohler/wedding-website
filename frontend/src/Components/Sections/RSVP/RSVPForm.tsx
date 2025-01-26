@@ -1,26 +1,12 @@
 import Stack from "react-bootstrap/Stack";
-import { DashCircle, PlusCircle, Icon } from "react-bootstrap-icons";
+import { DashCircle, PlusCircle } from "react-bootstrap-icons";
 import Button from "react-bootstrap/esm/Button";
 import { useMediaQuery } from "usehooks-ts";
 
 import { TextInput } from "../../TextInput";
 import { NumberInput } from "../../NumberInput";
 import { TelephoneInput } from "../../TelephoneInput";
-
-const IconButton = ({ icon: IconComponent }: { icon: Icon }) => {
-  return (
-    <div
-      style={{
-        height: "fit-content",
-        width: "fit-content",
-        padding: "0 16px",
-      }}
-      className="icon-button"
-    >
-      <IconComponent />
-    </div>
-  );
-};
+import { IconButton } from "../../IconButton";
 
 const ChildrenInput = () => {
   return (
@@ -34,9 +20,9 @@ const ChildrenInput = () => {
       }}
     >
       <span>Crianças:</span>
-      <IconButton icon={DashCircle} />
+      <IconButton icon={DashCircle} onClick={() => {}} />
       <NumberInput id={"children"} placeholder="0" />
-      <IconButton icon={PlusCircle} />
+      <IconButton icon={PlusCircle} onClick={() => {}} />
     </div>
   );
 };

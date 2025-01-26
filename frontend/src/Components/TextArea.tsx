@@ -3,10 +3,14 @@ import Form from "react-bootstrap/Form";
 export function TextArea({
   id,
   placeholder,
+  value,
+  onChange,
   rows = 4,
 }: {
   id: string;
   placeholder: string;
+  value: string;
+  onChange: (...props: any) => void;
   rows?: number;
 }) {
   return (
@@ -17,6 +21,8 @@ export function TextArea({
       placeholder={placeholder}
       as="textarea"
       rows={rows}
+      value={value}
+      onChange={onChange}
     />
   );
 }

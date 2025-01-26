@@ -7,7 +7,11 @@ import GiftCard, { GiftCardProduct } from "./GiftCard";
 import { GiftModal } from "./GiftModal";
 
 function GiftGrid({ products }: { products: GiftCardProduct[] }) {
+  const [modalProduct, setModalProduct] = useState<null | GiftCardProduct>(
+    null
+  );
   const [modalShow, setModalShow] = useState(false);
+
   return (
     <Container fluid>
       <Row
@@ -26,11 +30,21 @@ function GiftGrid({ products }: { products: GiftCardProduct[] }) {
             }}
             key={product.name}
           >
-            <GiftCard product={product} onClick={() => setModalShow(true)} />
+            <GiftCard
+              product={product}
+              onClick={() => {
+                setModalShow(true);
+                setModalProduct(product);
+              }}
+            />
           </Col>
         ))}
       </Row>
-      <GiftModal show={modalShow} onHide={() => setModalShow(false)} />
+      <GiftModal
+        product={modalProduct}
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
     </Container>
   );
 }

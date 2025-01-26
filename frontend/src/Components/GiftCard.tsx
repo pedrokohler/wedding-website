@@ -51,13 +51,6 @@ function GiftCard({
           variant="secondary"
           style={{
             width: "40%",
-            // backgroundColor: "#a47124",
-            // borderColor: "#a47124",
-            // minWidth: "fit-content",
-            // marginTop: "16px",
-            // "&:hover": {
-            //   background: "#efefef",
-            // },
           }}
           onClick={onClick}
         >
