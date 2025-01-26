@@ -22,7 +22,7 @@ export const HeroSection = () => {
   return (
     <Stack
       style={{
-        height: "110vh",
+        height: "105vh",
         width: "100vw",
       }}
     >
