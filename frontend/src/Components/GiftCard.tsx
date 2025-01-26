@@ -54,7 +54,7 @@ function GiftCard({
           }}
           onClick={onClick}
         >
-          Comprar
+          Presentear
         </Button>
       </Card.Body>
     </Card>

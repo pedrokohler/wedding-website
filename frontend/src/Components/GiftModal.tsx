@@ -98,8 +98,11 @@ export function GiftModal({ onHide, show, product }: any) {
           }}
         >
           <div>
-            1 - Fazer um PIX - Escanear o QR Code abaixo para enviar o valor
-            diretamente aos noivos:
+            1 - Fazer um <b>PIX</b>:
+          </div>
+          <div>
+            Escaneie o QR Code abaixo para enviar o valor diretamente aos
+            noivos:
           </div>
           <div
             style={{
@@ -123,8 +126,11 @@ export function GiftModal({ onHide, show, product }: any) {
           </div>
 
           <div>
-            2 - Comprar o item pela nossa lista da <b>Amazon</b>. O nosso
-            endereço de entrega estará disponível no checkout se você seguir{" "}
+            2 - Comprar o item pela nossa lista da <b>Amazon</b>:
+          </div>
+          <div>
+            O nosso endereço de entrega estará disponível no checkout se você
+            seguir{" "}
             <a
               href="https://www.amazon.com.br/hz/wishlist/ls/1ZBKW7ZXWRR04"
               target="_blank"
