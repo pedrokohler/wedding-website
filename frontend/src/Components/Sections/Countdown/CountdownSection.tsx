@@ -1,9 +1,13 @@
+import { forwardRef, LegacyRef } from "react";
 import Stack from "react-bootstrap/Stack";
 import { useMediaQuery } from "usehooks-ts";
 
 import { Countdown } from "./Countdown";
 
-export const CountdownSection = () => {
+const CountdownSection = (
+  _props: unknown,
+  ref: LegacyRef<HTMLHeadingElement> | undefined
+) => {
   const isAbove770w = useMediaQuery("(min-width: 770px)");
   const isAbove1080w = useMediaQuery("(min-width: 1080px)");
 
@@ -26,6 +30,7 @@ export const CountdownSection = () => {
           maxWidth: "80%",
           alignSelf: "center",
         }}
+        ref={ref}
       >
         CONTAGEM REGRESSIVA PARA O GRANDE DIA
       </h2>
@@ -41,3 +46,5 @@ export const CountdownSection = () => {
     </Stack>
   );
 };
+
+export default forwardRef(CountdownSection);

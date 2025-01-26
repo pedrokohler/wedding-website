@@ -1,11 +1,39 @@
+import { RefObject, useState } from "react";
 import Stack from "react-bootstrap/Stack";
-import { useMediaQuery } from "usehooks-ts";
+import { useEventListener, useMediaQuery, useTimeout } from "usehooks-ts";
 
 import HeroBackground from "../../assets/bg-hero.png";
 import HeroSignature from "../../assets/signature-hero.png";
+import ArrowDown from "../../assets/seta.svg";
 
-export const HeroSection = () => {
+const MIN_SCROLL_Y = 300;
+
+export const HeroSection = ({
+  jumpToRef,
+}: {
+  jumpToRef: RefObject<HTMLHeadingElement | undefined>;
+}) => {
+  const [hasScrolledDown, setHasScrolledDown] = useState(false);
+  const [isArrowVisible, setIsArrowVisible] = useState(false);
   const isAbove500w = useMediaQuery("(min-width: 500px)");
+
+  useTimeout(() => {
+    if (!hasScrolledDown && window.scrollY < MIN_SCROLL_Y) {
+      setIsArrowVisible(true);
+    }
+  }, 3000);
+
+  useEventListener(
+    "scrollend",
+    () => {
+      if (window.scrollY >= MIN_SCROLL_Y) {
+        setHasScrolledDown(true);
+        setIsArrowVisible(false);
+      }
+    },
+    undefined
+    // { once: true }
+  );
 
   const heroSignatureSizingStyles = isAbove500w
     ? {
@@ -41,6 +69,18 @@ export const HeroSection = () => {
           ...heroSignatureSizingStyles,
         }}
       />
+      {isArrowVisible && (
+        <div className="animated-arrow" style={{ cursor: "pointer" }}>
+          <img
+            src={ArrowDown}
+            onClick={() => {
+              jumpToRef.current?.scrollIntoView({
+                behavior: "smooth",
+              });
+            }}
+          />
+        </div>
+      )}
     </Stack>
   );
 };
