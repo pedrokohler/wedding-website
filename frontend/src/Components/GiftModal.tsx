@@ -117,7 +117,7 @@ export function GiftModal({ onHide, show, product }: any) {
             />
           </div>
           <div>Ou copie o código pix a seguir: </div>
-          <div>
+          <div style={{ textWrap: "wrap", overflowWrap: "break-word" }}>
             <i>{pixString}</i>
             <IconButton onClick={() => copy(pixString)} icon={Copy} />
           </div>
