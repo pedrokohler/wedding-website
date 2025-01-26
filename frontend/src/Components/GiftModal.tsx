@@ -9,6 +9,10 @@ import { TextArea } from "./TextArea";
 import { useCopyToClipboard } from "usehooks-ts";
 import { IconButton } from "./IconButton";
 
+const bitcoinAddress = "bc1q6zu2cruhn4xaadgtfsjv4d6tfzjgqfuzp86wyd";
+const externalGiftListUrl =
+  "https://www.amazon.com.br/hz/wishlist/ls/1ZBKW7ZXWRR04";
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function GiftModal({ onHide, show, product }: any) {
   const [, copy] = useCopyToClipboard();
@@ -97,9 +101,9 @@ export function GiftModal({ onHide, show, product }: any) {
             margin: "16px 0",
           }}
         >
-          <div>
+          <h5>
             1 - Fazer um <b>PIX</b>:
-          </div>
+          </h5>
           <div>
             Escaneie o QR Code abaixo para enviar o valor diretamente aos
             noivos:
@@ -121,30 +125,30 @@ export function GiftModal({ onHide, show, product }: any) {
           </div>
           <div>Ou copie o código pix a seguir: </div>
           <div style={{ textWrap: "wrap", overflowWrap: "break-word" }}>
-            <sub>{pixString}</sub>
+            <span style={{ fontSize: "0.65em" }}>{pixString}</span>
             <IconButton onClick={() => copy(pixString)} icon={Copy} />
           </div>
 
-          <div>
+          <h5>
             2 - Comprar o item pela nossa lista da <b>Amazon</b>:
-          </div>
+          </h5>
           <div>
-            O nosso endereço de entrega estará disponível no checkout se você
-            seguir{" "}
-            <a
-              href="https://www.amazon.com.br/hz/wishlist/ls/1ZBKW7ZXWRR04"
-              target="_blank"
-            >
+            O endereço de entrega dos noivos estará disponível no checkout ao
+            comprar por{" "}
+            <a href={externalGiftListUrl} target="_blank">
               este link
             </a>
             . Não se esqueça de se certificar que está enviando para o endereço
             correto antes de finalizar a compra.
           </div>
+          <h5>
+            3 - Enviar <b>Bitcoin</b> para a carteira dos noivos:
+          </h5>
           <div>
-            3 - Enviar <b>Bitcoin</b> para a carteira dos noivos:{" "}
-            <b>
-              <i>bc1q6zu2cruhn4xaadgtfsjv4d6tfzjgqfuzp86wyd</i>
+            <b style={{ textWrap: "wrap", overflowWrap: "break-word" }}>
+              <span style={{ fontSize: "0.65em" }}>{bitcoinAddress}</span>
             </b>
+            <IconButton onClick={() => copy(bitcoinAddress)} icon={Copy} />
           </div>
         </Stack>
       </Modal.Body>
