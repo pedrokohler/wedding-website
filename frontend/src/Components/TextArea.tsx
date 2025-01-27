@@ -1,3 +1,4 @@
+import { ChangeEventHandler } from "react";
 import Form from "react-bootstrap/Form";
 
 export function TextArea({
@@ -10,7 +11,7 @@ export function TextArea({
   id: string;
   placeholder: string;
   value: string;
-  onChange: (...props: any) => void;
+  onChange: ChangeEventHandler<HTMLInputElement>;
   rows?: number;
 }) {
   return (

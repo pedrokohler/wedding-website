@@ -1,11 +1,16 @@
+import { ChangeEventHandler } from "react";
 import Form from "react-bootstrap/Form";
 
 export function TextInput({
   id,
   placeholder,
+  value,
+  onChange,
 }: {
   id: string;
   placeholder: string;
+  value: string;
+  onChange: ChangeEventHandler<HTMLInputElement>;
 }) {
   return (
     <Form.Control
@@ -13,6 +18,8 @@ export function TextInput({
       type="text"
       id={id}
       placeholder={placeholder}
+      value={value}
+      onChange={onChange}
     />
   );
 }

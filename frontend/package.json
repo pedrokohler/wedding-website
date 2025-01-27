@@ -12,6 +12,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.64.2",
     "bootstrap": "^5.3.3",
     "buffer": "^6.0.3",
     "qrcode-pix": "5.0.0",

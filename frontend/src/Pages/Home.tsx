@@ -10,6 +10,7 @@ import { useRef } from "react";
 
 export const HomePage = () => {
   const ref = useRef<HTMLHeadingElement>(null);
+
   return (
     <Stack gap={2}>
       <HeroSection jumpToRef={ref} />

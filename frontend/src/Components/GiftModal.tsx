@@ -25,6 +25,10 @@ export function GiftModal({ onHide, show, product }: any) {
   };
 
   useEffect(() => {
+    if (!product) {
+      return;
+    }
+
     const generateQRCode = async () => {
       const transactionId = product.name
         .toLowerCase()
