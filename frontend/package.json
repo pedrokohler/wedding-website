@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist --cname winnyepedro.site"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.64.2",
