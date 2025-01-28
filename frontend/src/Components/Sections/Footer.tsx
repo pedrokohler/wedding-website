@@ -110,9 +110,11 @@ export const FooterSection = () => {
         <b
           style={{ color: "#A47124", fontSize: "1.1em", fontWeight: "bolder" }}
         >
-          {isPending || error || typeof data.uniqueSessionsCount !== "number"
-            ? "????"
-            : data.uniqueSessionsCount}
+          {
+            isPending || error || typeof data.uniqueSessionsCount !== "number"
+              ? "????"
+              : data.uniqueSessionsCount + 8732 /** this is just a joke */
+          }
         </b>{" "}
         visitantes até o momento | <span>&copy;</span> Pedro Köhler{" "}
         {new Date().getFullYear()}
