@@ -36,7 +36,11 @@ export class GiftsService {
       'TELEGRAM_NOTIFICATION_CHANNEL_ID',
       '',
     );
-    this.monitorAndUpdateGiftListRecursive(180_000);
+    const NODE_ENV = this.configService.get<string>('NODE_ENV', 'production');
+
+    if (NODE_ENV === 'local') {
+      this.monitorAndUpdateGiftListRecursive(180_000);
+    }
   }
 
   private createSearchParam = (itemName: string) =>

@@ -31,7 +31,12 @@ export class TelegramBotService {
       );
     });
     this.bot = bot;
-    this.startBot();
+
+    const NODE_ENV = this.configService.get<string>('NODE_ENV', 'production');
+
+    if (NODE_ENV === 'local') {
+      this.startBot();
+    }
   }
 
   public async startBot(): Promise<void> {
