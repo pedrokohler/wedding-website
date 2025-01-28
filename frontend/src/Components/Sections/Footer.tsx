@@ -95,6 +95,7 @@ export const FooterSection = () => {
   return (
     <Stack
       style={{
+        padding: "1em",
         height: "20vh",
         width: "100vw",
         backgroundColor: "#000C1E",
@@ -106,6 +107,7 @@ export const FooterSection = () => {
       <div>
         Com amor, Winny e Pedro. Obrigado por fazer parte da nossa história.
       </div>
+      <br />
       <div>
         <b
           style={{ color: "#A47124", fontSize: "1.1em", fontWeight: "bolder" }}
@@ -116,8 +118,10 @@ export const FooterSection = () => {
               : data.uniqueSessionsCount + 8732 /** this is just a joke */
           }
         </b>{" "}
-        visitantes até o momento | <span>&copy;</span> Pedro Köhler{" "}
-        {new Date().getFullYear()}
+        visitas ao site até o momento
+      </div>
+      <div>
+        <span>&copy;</span> Pedro Köhler {new Date().getFullYear()}
       </div>
     </Stack>
   );
