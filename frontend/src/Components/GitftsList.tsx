@@ -9,7 +9,7 @@ export const GiftsList = () => {
   const { isPending, error, data } = useQuery<GiftCardProduct[]>({
     queryKey: ["gifts-gift-list"],
     queryFn: () =>
-      fetch(`${import.meta.env.VITE_API_URL}/gifts?limit=20`).then((res) =>
+      fetch(`${import.meta.env.VITE_API_URL}/gifts?limit=200`).then((res) =>
         res.json()
       ),
   });
@@ -18,7 +18,7 @@ export const GiftsList = () => {
   const isAbove750w = useMediaQuery("(min-width: 750px)");
   const isAbove1000w = useMediaQuery("(min-width: 1000px)");
 
-  if (isPending) return "Carregando...";
+  if (isPending) return <div style={{ height: "100vh" }}>Carregando...</div>;
 
   if (error || !Array.isArray(data)) {
     console.error(error || data);
