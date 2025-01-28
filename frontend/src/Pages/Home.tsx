@@ -7,6 +7,7 @@ import { RSVPSection } from "../Components/Sections/RSVP/RSVPSection";
 import { GiftsSection } from "../Components/Sections/GiftsSection";
 import { MessageSection } from "../Components/Sections/Message/MessageSection";
 import { useRef } from "react";
+import { FooterSection } from "../Components/Sections/Footer";
 
 export const HomePage = () => {
   const ref = useRef<HTMLHeadingElement>(null);
@@ -20,6 +21,7 @@ export const HomePage = () => {
       <RSVPSection />
       <GiftsSection />
       <MessageSection />
+      <FooterSection />
     </Stack>
   );
 };

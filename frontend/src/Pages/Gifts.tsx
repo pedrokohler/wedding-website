@@ -4,6 +4,7 @@ import { useMediaQuery } from "usehooks-ts";
 
 import Signature from "../assets/signature-gift-page.svg";
 import { GiftsList } from "../Components/GitftsList";
+import { FooterSection } from "../Components/Sections/Footer";
 
 export const GiftsPage = () => {
   const navigate = useNavigate();
@@ -29,6 +30,7 @@ export const GiftsPage = () => {
         onClick={() => navigate("/")}
       />
       <GiftsList />
+      <FooterSection />
     </Stack>
   );
 };
