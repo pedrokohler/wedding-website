@@ -29,9 +29,9 @@ export function GiftModal({ onHide, show, product }: any) {
     }
 
     const generateQRCode = async () => {
-      const transactionId = product.name
+      const transactionId = product.id
         .toLowerCase()
-        .replace(/\s/g, "")
+        .replace(/[^a-zA-Z0-9]/g, "")
         .slice(0, 25);
       const pix = QrCodePix({
         version: "01",

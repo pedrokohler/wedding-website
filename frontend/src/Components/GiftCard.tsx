@@ -3,6 +3,7 @@ import Card from "react-bootstrap/Card";
 import { convertPriceInCentsToPriceString } from "../utils/price";
 
 export type GiftCardProduct = {
+  id: string;
   name: string;
   description: string;
   imageUrl: string;
