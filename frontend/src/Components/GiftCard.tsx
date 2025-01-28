@@ -51,8 +51,12 @@ function GiftCard({
       <Card.Img
         variant="top"
         src={product.imageUrl}
-        style={{ objectFit: "contain", height: "256px", cursor: "pointer" }}
-        onClick={onClick}
+        style={{
+          objectFit: "contain",
+          height: "256px",
+          cursor: isDisabled ? "not-allowed" : "pointer",
+        }}
+        onClick={isDisabled ? () => {} : onClick}
       />
       <Card.Body
         style={{
