@@ -35,7 +35,7 @@ export const MessageForm = () => {
   const mutation = useMutation({
     mutationFn: (newMessage: MessageDto) => {
       const body = JSON.stringify(newMessage);
-      return fetch("http://localhost:3000/messages", {
+      return fetch(`${import.meta.env.VITE_API_URL}/messages`, {
         method: "POST",
         body,
         headers: {

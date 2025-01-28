@@ -7,9 +7,11 @@ import { GiftCardProduct } from "./GiftCard";
 
 export const GiftsList = () => {
   const { isPending, error, data } = useQuery<GiftCardProduct[]>({
-    queryKey: ["gifts"],
+    queryKey: ["gifts-gift-list"],
     queryFn: () =>
-      fetch("http://localhost:3000/gifts?limit=20").then((res) => res.json()),
+      fetch(`${import.meta.env.VITE_API_URL}/gifts?limit=20`).then((res) =>
+        res.json()
+      ),
   });
 
   const isAbove500w = useMediaQuery("(min-width: 500px)");

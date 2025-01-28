@@ -8,10 +8,9 @@ import { QrCodePix } from "qrcode-pix";
 import { TextArea } from "./TextArea";
 import { useCopyToClipboard } from "usehooks-ts";
 import { IconButton } from "./IconButton";
+import { convertPriceInCentsToPriceString } from "../utils/price";
 
 const bitcoinAddress = "bc1q6zu2cruhn4xaadgtfsjv4d6tfzjgqfuzp86wyd";
-const externalGiftListUrl =
-  "https://www.amazon.com.br/hz/wishlist/ls/1ZBKW7ZXWRR04";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function GiftModal({ onHide, show, product }: any) {
@@ -94,7 +93,7 @@ export function GiftModal({ onHide, show, product }: any) {
       <Modal.Body>
         <h4>{product.name}</h4>
         <div style={{ fontSize: "0.65em", margin: "0 0 16px 0" }}>
-          R${(product.priceInCents / 100).toString()}
+          {convertPriceInCentsToPriceString(product.priceInCents)}
         </div>
         <div>
           Você pode optar por uma das opções abaixo para adquirir este presente:
@@ -139,7 +138,7 @@ export function GiftModal({ onHide, show, product }: any) {
           <div>
             O endereço de entrega dos noivos estará disponível no checkout ao
             comprar por{" "}
-            <a href={externalGiftListUrl} target="_blank">
+            <a href={product.productUrl} target="_blank">
               este link
             </a>
             . Não se esqueça de se certificar que está enviando para o endereço

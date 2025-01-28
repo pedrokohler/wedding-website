@@ -11,9 +11,11 @@ import { useQuery } from "@tanstack/react-query";
 
 export const GiftsSection = () => {
   const { isPending, error, data } = useQuery<GiftCardProduct[]>({
-    queryKey: ["gifts"],
+    queryKey: ["gifts-home-page"],
     queryFn: () =>
-      fetch("http://localhost:3000/gifts?limit=3").then((res) => res.json()),
+      fetch(`${import.meta.env.VITE_API_URL}/gifts?limit=3`).then((res) =>
+        res.json()
+      ),
   });
   const navigate = useNavigate();
   const isAbove500w = useMediaQuery("(min-width: 500px)");

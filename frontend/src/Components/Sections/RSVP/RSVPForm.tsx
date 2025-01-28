@@ -84,7 +84,7 @@ export const RSVPForm = () => {
   const mutation = useMutation({
     mutationFn: (newGuest: GuestDto) => {
       const body = JSON.stringify(newGuest);
-      return fetch("http://localhost:3000/guests", {
+      return fetch(`${import.meta.env.VITE_API_URL}/guests`, {
         method: "POST",
         body,
         headers: {
