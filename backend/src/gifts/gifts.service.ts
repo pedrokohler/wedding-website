@@ -117,12 +117,19 @@ export class GiftsService {
 
       const url = `${this.wishlistUrl}${this.createSearchParam(currentGift.searchTerm)}`;
       const [item] = await this.scrapeList({ url });
+      console.debug(
+        '🚀 ~ GiftsService ~ monitorAndUpdateGiftList ~ item:',
+        item,
+      );
 
       if (!item) {
         currentGift.isActive = false;
+        console.debug(
+          '🚀 ~ GiftsService ~ monitorAndUpdateGiftList ~ setting currentGift.isActive: false',
+        );
         await this.telegramBotService.sendMessage({
           chatId: this.telegramNotificationChannelId,
-          text: `O item "${currentGift.name}" (${currentGift.productUrl}) foi retirado da lista!`,
+          text: `O seguinte item foi retirado da lista:\n\n${JSON.stringify(currentGift, null, 2)}`,
         });
         await this.giftModel.findOneAndUpdate(
           { id: currentGift.id },
@@ -135,6 +142,14 @@ export class GiftsService {
         item.priceInCents !== currentGift.priceInCents ||
         item.name !== currentGift.name
       ) {
+        console.debug(
+          '🚀 ~ GiftsService ~ monitorAndUpdateGiftList ~ new item.priceInCents:',
+          item.priceInCents,
+        );
+        console.debug(
+          '🚀 ~ GiftsService ~ monitorAndUpdateGiftList ~ new item.name:',
+          item.name,
+        );
         currentGift.name = item.name as string;
         currentGift.priceInCents = item.priceInCents;
         await this.giftModel.findOneAndUpdate(
