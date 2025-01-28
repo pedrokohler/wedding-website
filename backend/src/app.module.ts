@@ -5,6 +5,7 @@ import { GuestsModule } from './guests/guests.module';
 import { TelegramBotModule } from './telegram-bot/telegram-bot.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
+import { SessionsAndVisitorsModule } from './sessions-and-visitors/sessions-and-visitors.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ConfigModule } from '@nestjs/config';
     GuestsModule,
     TelegramBotModule,
     MongooseModule.forRoot(process.env.MONGO_DB_CONNECTION_STRING ?? ''),
+    SessionsAndVisitorsModule,
   ],
   controllers: [],
   providers: [],
