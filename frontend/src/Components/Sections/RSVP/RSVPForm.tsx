@@ -4,12 +4,14 @@ import Stack from "react-bootstrap/Stack";
 import { DashCircle, PlusCircle } from "react-bootstrap-icons";
 import Button from "react-bootstrap/esm/Button";
 import { useMediaQuery } from "usehooks-ts";
+import { useForm } from "react-hook-form";
 
-import { TextInput } from "../../TextInput";
+import { FormInput } from "../../FormInput";
 import { NumberInput } from "../../NumberInput";
-import { TelephoneInput } from "../../TelephoneInput";
 import { IconButton } from "../../IconButton";
 import { ModalContext } from "../../../contexts/modalContext";
+import { createRegisterOptions } from "../../../utils/createRegisterOptions";
+import { telephoneMask } from "../../../utils/telephoneMask";
 
 const ChildrenInput = ({
   value,
@@ -20,6 +22,11 @@ const ChildrenInput = ({
   setValue: React.Dispatch<React.SetStateAction<number>>;
   onChange: ChangeEventHandler<HTMLInputElement>;
 }) => {
+  const isValidValue = (newValue: number) => {
+    if (newValue >= 0 && newValue <= 10) {
+      return true;
+    }
+  };
   return (
     <div
       style={{
@@ -34,19 +41,29 @@ const ChildrenInput = ({
       <IconButton
         icon={DashCircle}
         onClick={() => {
-          setValue((oldVal) => oldVal - 1);
+          const newValue = value - 1;
+          if (isValidValue(newValue)) {
+            setValue(newValue);
+          }
         }}
       />
       <NumberInput
-        id={"children"}
+        id="children"
         placeholder="0"
         value={value}
-        onChange={onChange}
+        onChange={(e) => {
+          if (isValidValue(Number(e.target.value))) {
+            onChange(e);
+          }
+        }}
       />
       <IconButton
         icon={PlusCircle}
         onClick={() => {
-          setValue((oldVal) => oldVal + 1);
+          const newValue = value + 1;
+          if (isValidValue(newValue)) {
+            setValue(newValue);
+          }
         }}
       />
     </div>
@@ -61,10 +78,14 @@ type GuestDto = {
 };
 
 export const RSVPForm = () => {
-  const [name, setName] = useState("");
-  const [plusOne, setPlusOne] = useState("");
+  const {
+    register,
+    handleSubmit,
+    resetField,
+    formState: { errors },
+  } = useForm<GuestDto>();
+
   const [children, setChildren] = useState(0);
-  const [phone, setPhone] = useState("");
 
   const isAbove500w = useMediaQuery("(min-width: 500px)");
   const isAbove750w = useMediaQuery("(min-width: 750px)");
@@ -99,10 +120,10 @@ export const RSVPForm = () => {
           message: data.statusText,
         });
       }
-      setPlusOne("");
       setChildren(0);
-      setPhone("");
-      setName("");
+      resetField("name");
+      resetField("plusOne");
+      resetField("phone");
       showModal({ header: "Sucesso", message: "Sua presença foi confirmada!" });
     },
     onError: handleError,
@@ -117,39 +138,66 @@ export const RSVPForm = () => {
       }}
       gap={2}
     >
-      <TextInput
-        id={"name"}
-        placeholder={"Nome"}
-        value={name}
-        onChange={(e) => setName(e.target.value)}
+      <FormInput
+        errors={errors}
+        name="name"
+        placeholder="Nome"
+        register={register}
+        registerOptions={createRegisterOptions({
+          required: true,
+          minLength: 3,
+          maxLength: 30,
+        })}
+        type="text"
       />
-      <TextInput
-        id={"plusOne"}
-        placeholder={"Acompanhante"}
-        value={plusOne}
-        onChange={(e) => setPlusOne(e.target.value)}
+      <FormInput
+        errors={errors}
+        name="plusOne"
+        placeholder="Acompanhante"
+        register={register}
+        registerOptions={createRegisterOptions({
+          required: false,
+          minLength: 3,
+          maxLength: 30,
+        })}
+        type="text"
       />
       <ChildrenInput
         value={children}
         setValue={setChildren}
         onChange={(e) => setChildren(Number(e.target.value))}
       />
-      <TelephoneInput
-        id={"phone"}
+      <FormInput<GuestDto>
+        errors={errors}
+        name="phone"
         placeholder="(31) 98888-8888"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
+        register={register}
+        registerOptions={{
+          required: { value: true, message: "Campo obrigatório" },
+          minLength: {
+            value: 15,
+            message: "Insira um telefone válido",
+          },
+          pattern: {
+            value: /\(([0-9]{2})\)\s([987]{1})?([0-9]{4})-([0-9]{4})/,
+            message: "Insira um telefone válido",
+          },
+        }}
+        mask={telephoneMask}
+        type="tel"
       />
       <Button
         size="lg"
-        onClick={() =>
-          mutation.mutate({
-            name,
-            plusOne,
-            children,
-            phone,
-          })
-        }
+        onClick={handleSubmit(
+          ({ phone, name, plusOne }) =>
+            mutation.mutate({
+              phone,
+              name,
+              plusOne,
+              children,
+            }),
+          console.error
+        )}
       >
         CONFIRMAR
       </Button>

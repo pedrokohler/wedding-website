@@ -1,12 +1,14 @@
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext } from "react";
 import Stack from "react-bootstrap/Stack";
 import Button from "react-bootstrap/esm/Button";
 import { useMediaQuery } from "usehooks-ts";
 import { useMutation } from "@tanstack/react-query";
+import { useForm } from "react-hook-form";
 
-import { TextInput } from "../../TextInput";
+import { FormInput } from "../../FormInput";
 import { TextArea } from "../../TextArea";
 import { ModalContext } from "../../../contexts/modalContext";
+import { createRegisterOptions } from "../../../utils/createRegisterOptions";
 
 type MessageDto = {
   name: string;
@@ -14,8 +16,12 @@ type MessageDto = {
 };
 
 export const MessageForm = () => {
-  const [name, setName] = useState("");
-  const [message, setMessage] = useState("");
+  const {
+    register,
+    handleSubmit,
+    resetField,
+    formState: { errors },
+  } = useForm<MessageDto>();
 
   const isAbove500w = useMediaQuery("(min-width: 500px)");
   const isAbove750w = useMediaQuery("(min-width: 750px)");
@@ -50,8 +56,8 @@ export const MessageForm = () => {
           message: data.statusText,
         });
       }
-      setMessage("");
-      setName("");
+      resetField("message");
+      resetField("name");
       showModal({ header: "Sucesso", message: "Sua mensagem foi enviada!" });
     },
     onError: handleError,
@@ -66,21 +72,28 @@ export const MessageForm = () => {
       }}
       gap={2}
     >
-      <TextArea
-        id={"message"}
+      <TextArea<MessageDto>
         placeholder={"Escreva uma mensagem"}
-        value={message}
-        onChange={(e) => {
-          setMessage(e.target.value);
-        }}
+        name={"message"}
+        errors={errors}
+        register={register}
+        registerOptions={createRegisterOptions({
+          required: true,
+          minLength: 10,
+          maxLength: 1000,
+        })}
       />
-      <TextInput
-        id={"name"}
+      <FormInput<MessageDto>
         placeholder={"Nome"}
-        value={name}
-        onChange={(e) => {
-          setName(e.target.value);
-        }}
+        name={"name"}
+        register={register}
+        registerOptions={createRegisterOptions({
+          required: true,
+          minLength: 3,
+          maxLength: 30,
+        })}
+        errors={errors}
+        type="text"
       />
       <Button
         disabled={mutation.isPending}
@@ -88,12 +101,7 @@ export const MessageForm = () => {
           width: "38%",
           alignSelf: "flex-end",
         }}
-        onClick={() =>
-          mutation.mutate({
-            message,
-            name,
-          })
-        }
+        onClick={handleSubmit((messageDto) => mutation.mutate(messageDto))}
       >
         ENVIAR
       </Button>
