@@ -6,7 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 
 import { FormInput } from "../../FormInput";
-import { TextArea } from "../../TextArea";
+import { FormTextArea } from "../../FormTextArea";
 import { ModalContext } from "../../../contexts/modalContext";
 import { createRegisterOptions } from "../../../utils/createRegisterOptions";
 
@@ -72,7 +72,7 @@ export const MessageForm = () => {
       }}
       gap={2}
     >
-      <TextArea<MessageDto>
+      <FormTextArea<MessageDto>
         placeholder={"Escreva uma mensagem"}
         name={"message"}
         errors={errors}

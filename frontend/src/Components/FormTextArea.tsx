@@ -7,45 +7,31 @@ import {
   UseFormRegister,
 } from "react-hook-form";
 
-export function FormInput<T extends FieldValues>({
-  placeholder,
+export function FormTextArea<T extends FieldValues>({
   name,
   registerOptions,
   register,
   errors,
-  type,
-  mask,
+  placeholder,
+  rows = 4,
 }: {
-  placeholder: string;
   register: UseFormRegister<T>;
   name: Path<T>;
   registerOptions: RegisterOptions<T, Path<T>> | undefined;
   errors: FieldErrors<T>;
-  type?: string;
-  mask?: (value: string) => string;
+  placeholder: string;
+  rows?: number;
 }) {
-  const { onChange, ...restOfRegisterProps } = register(name, registerOptions);
-
-  const handleChange =
-    typeof mask === "function"
-      ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (e: { target: any; type?: any }) => {
-          const inputValue = e.target.value;
-          const maskedValue = mask(inputValue);
-          e.target.value = maskedValue;
-          onChange(e);
-        }
-      : onChange;
-
   return (
     <>
       <Form.Control
         className={errors[name] ? "error" : ""}
-        style={{ width: "100%" }}
-        type={type}
+        style={{ width: "100%", resize: "none" }}
+        type="text"
         placeholder={placeholder}
-        {...restOfRegisterProps}
-        onChange={handleChange}
+        as="textarea"
+        rows={rows}
+        {...register(name, registerOptions)}
       />
       {errors[name] && typeof errors[name].message === "string" ? (
         <sub

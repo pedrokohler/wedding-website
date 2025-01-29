@@ -5,10 +5,10 @@ import Stack from "react-bootstrap/esm/Stack";
 import { Copy } from "react-bootstrap-icons";
 import { QrCodePix } from "qrcode-pix";
 
-import { TextArea } from "./TextArea";
 import { useCopyToClipboard } from "usehooks-ts";
 import { IconButton } from "./IconButton";
 import { convertPriceInCentsToPriceString } from "../utils/price";
+import { TextArea } from "./TextArea";
 
 const bitcoinAddress = "bc1q6zu2cruhn4xaadgtfsjv4d6tfzjgqfuzp86wyd";
 
@@ -29,7 +29,7 @@ export function GiftModal({ onHide, show, product }: any) {
     }
 
     const generateQRCode = async () => {
-      const transactionId = product.id
+      const transactionId = product.name
         .toLowerCase()
         .replace(/[^a-zA-Z0-9]/g, "")
         .slice(0, 25);

@@ -1,47 +1,29 @@
+import { ChangeEventHandler } from "react";
 import Form from "react-bootstrap/Form";
-import {
-  FieldErrors,
-  FieldValues,
-  Path,
-  RegisterOptions,
-  UseFormRegister,
-} from "react-hook-form";
 
-export function TextArea<T extends FieldValues>({
-  name,
-  registerOptions,
-  register,
-  errors,
+export function TextArea({
+  id,
   placeholder,
+  value,
+  onChange,
   rows = 4,
 }: {
-  register: UseFormRegister<T>;
-  name: Path<T>;
-  registerOptions: RegisterOptions<T, Path<T>> | undefined;
-  errors: FieldErrors<T>;
+  id: string;
   placeholder: string;
+  value: string;
+  onChange: ChangeEventHandler<HTMLInputElement>;
   rows?: number;
 }) {
   return (
-    <>
-      <Form.Control
-        className={errors[name] ? "error" : ""}
-        style={{ width: "100%", resize: "none" }}
-        type="text"
-        placeholder={placeholder}
-        as="textarea"
-        rows={rows}
-        {...register(name, registerOptions)}
-      />
-      {errors[name] && typeof errors[name].message === "string" ? (
-        <sub
-          style={{ alignSelf: "flex-start", color: "red", marginBottom: "8px" }}
-        >
-          {errors[name].message}
-        </sub>
-      ) : (
-        <></>
-      )}
-    </>
+    <Form.Control
+      style={{ width: "100%", resize: "none" }}
+      type="text"
+      id={id}
+      placeholder={placeholder}
+      as="textarea"
+      rows={rows}
+      value={value}
+      onChange={onChange}
+    />
   );
 }
