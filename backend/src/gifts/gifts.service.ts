@@ -232,7 +232,13 @@ export class GiftsService {
     url: string;
     shouldGetBetterImage?: boolean;
   }): Promise<AmazonProduct[]> {
-    const selector = await cheerio.fromURL(url);
+    const result = await fetch(url, {
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.112 Safari/534.30',
+      },
+    }).then((res) => res.text());
+    const selector = cheerio.load(result);
     const items: AmazonProduct[] = [];
 
     for (let i = 1; i < 20; i++) {
