@@ -21,7 +21,6 @@ const updateCount = async ({
   queryClient,
 }: any) => {
   if (!hasVisitedUnique) {
-    console.log("🚀 ~ updateCount ~ !hasVisitedUnique:", !hasVisitedUnique);
     await mutationUnique.mutate();
     setHasVisitedUnique(true);
   }
