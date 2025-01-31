@@ -1,6 +1,10 @@
 export const convertPriceInCentsToPriceString = (
   priceInCents: number
 ): string => {
+  if(!priceInCents){
+    return "Valor indisponível";
+  }
+
   const stringifiedPrice = priceInCents.toString();
   return (
     "R$ " +
