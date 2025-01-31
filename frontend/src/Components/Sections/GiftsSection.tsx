@@ -55,9 +55,9 @@ export const GiftsSection = () => {
           alignSelf: "center",
         }}
       >
-        Donec dignissim et libero sed congue. Cras sit amet vestibulum diam.
-        Etiam ut varius turpis. Proin luctus efficitur mi, nec sollicitudin
-        tellus tincidunt sed.
+        Estamos muito felizes em ter você conosco. Sua presença já é um presente
+        e, se quiser nos agradar ainda mais, será um gesto que vamos receber com
+        muito carinho.
       </div>
       <GiftGrid products={data} />
       <Button

@@ -32,9 +32,8 @@ export const RSVPSection = () => {
           alignSelf: "center",
         }}
       >
-        Donec dignissim et libero sed congue. Cras sit amet vestibulum diam.
-        Etiam ut varius turpis. Proin luctus efficitur mi, nec sollicitudin
-        tellus tincidunt sed.
+        Sua presença é muito importante para nós! Confirme as informações abaixo
+        e venha solenizar conosco este momento único em nossas vidas.
       </div>
       <RSVPForm />
     </Stack>
