@@ -10,11 +10,10 @@ export function AlertModal() {
       show={isShown}
       onHide={onHide}
       size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">{header}</Modal.Title>
+        <Modal.Title>{header}</Modal.Title>
       </Modal.Header>
       <Modal.Body>{message}</Modal.Body>
       <Modal.Footer>

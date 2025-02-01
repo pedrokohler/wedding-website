@@ -3,10 +3,12 @@ import { useMediaQuery } from "usehooks-ts";
 import { useQuery } from "@tanstack/react-query";
 
 import GiftGrid from "./GiftGrid";
-import { GiftCardProduct } from "./GiftCard";
+import { ErrorResponse, GiftCardProduct } from "../types";
 
 export const GiftsList = () => {
-  const { isPending, error, data } = useQuery<GiftCardProduct[]>({
+  const { isPending, error, data } = useQuery<
+    GiftCardProduct[] | ErrorResponse
+  >({
     queryKey: ["gifts-gift-list"],
     queryFn: () =>
       fetch(`${import.meta.env.VITE_API_URL}/gifts?limit=200`).then((res) =>
@@ -18,20 +20,12 @@ export const GiftsList = () => {
   const isAbove750w = useMediaQuery("(min-width: 750px)");
   const isAbove1000w = useMediaQuery("(min-width: 1000px)");
 
-  if (isPending) return <div style={{ height: "100vh" }}>Carregando...</div>;
-
-  if (error || !Array.isArray(data)) {
-    console.error(error || data);
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    //@ts-ignore
-    return "Ocorreu um erro: " + (error?.message || data?.message);
-  }
-
   return (
     <Stack
       gap={5}
       style={{
-        height: "fit-content",
+        height: 'fit-content',
+        minHeight: "100vh",
         width: "100%",
         padding: isAbove1000w
           ? "32px 196px"
@@ -43,18 +37,29 @@ export const GiftsList = () => {
       }}
     >
       <h2 className="text-gold">LISTA DE PRESENTES</h2>
-      <div
-        style={{
-          color: "black",
-          maxWidth: "80%",
-          alignSelf: "center",
-        }}
-      >
-        Estamos muito felizes em ter você conosco. Sua presença já é um presente
-        e, se quiser nos agradar ainda mais, será um gesto que vamos receber com
-        muito carinho.
-      </div>
-      <GiftGrid products={data} />
+
+      {isPending ? (
+        "Carregando..."
+      ) : error !== null ? (
+        "Ocorreu um erro: " + error.message
+      ) : data && !Array.isArray(data) ? (
+        "Ocorreu um erro: " + data.message
+      ) : (
+        <>
+          <div
+            style={{
+              color: "black",
+              maxWidth: "80%",
+              alignSelf: "center",
+            }}
+          >
+            Estamos muito felizes em ter você conosco. Sua presença já é um
+            presente e, se quiser nos agradar ainda mais, será um gesto que
+            vamos receber com muito carinho.
+          </div>
+          <GiftGrid products={data} />
+        </>
+      )}
     </Stack>
   );
 };

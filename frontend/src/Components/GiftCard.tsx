@@ -1,16 +1,8 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import { convertPriceInCentsToPriceString } from "../utils/price";
+import { GiftCardProduct } from "../types";
 
-export type GiftCardProduct = {
-  id: string;
-  name: string;
-  description: string;
-  imageUrl: string;
-  priceInCents: number;
-  isActive: boolean;
-  productUrl: string;
-};
 
 const treatProductTitle = (product: GiftCardProduct) => {
   const MAX_TITLE_LENGTH = 30;

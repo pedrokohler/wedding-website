@@ -3,8 +3,9 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import GiftCard, { GiftCardProduct } from "./GiftCard";
+import GiftCard from "./GiftCard";
 import { GiftModal } from "./GiftModal";
+import { GiftCardProduct } from "../types";
 
 function GiftGrid({ products }: { products: GiftCardProduct[] }) {
   const [modalProduct, setModalProduct] = useState<null | GiftCardProduct>(
