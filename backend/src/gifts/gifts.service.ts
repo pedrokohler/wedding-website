@@ -143,12 +143,12 @@ export class GiftsService {
         item.name !== currentGift.name
       ) {
         console.debug(
-          '🚀 ~ GiftsService ~ monitorAndUpdateGiftList ~ new item.priceInCents:',
-          item.priceInCents,
+          '🚀 ~ GiftsService ~ monitorAndUpdateGiftList ~ old item.priceInCents:',
+          currentGift.priceInCents,
         );
         console.debug(
           '🚀 ~ GiftsService ~ monitorAndUpdateGiftList ~ new item.name:',
-          item.name,
+          currentGift.name,
         );
         currentGift.name = item.name as string;
         currentGift.priceInCents = item.priceInCents;

@@ -2,7 +2,7 @@ export const convertPriceInCentsToPriceString = (
   priceInCents: number
 ): string => {
   if(!priceInCents){
-    return "Valor indisponível";
+    return "Preço indisponível";
   }
 
   const stringifiedPrice = priceInCents.toString();
