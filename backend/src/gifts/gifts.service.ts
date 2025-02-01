@@ -1,7 +1,7 @@
 import { forwardRef, Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { Gift } from 'src/schemas/gift.schema';
+import { FilterQuery, Model } from 'mongoose';
+import { Gift, GiftDocument } from 'src/schemas/gift.schema';
 import * as cheerio from 'cheerio';
 import { TelegramBotService } from 'src/telegram-bot/telegram-bot.service';
 import { ConfigService } from '@nestjs/config';
@@ -53,6 +53,37 @@ export class GiftsService {
     }
   }
 
+  // private async updateAllImages() {
+  //   const gifts = await this.getGifts({ limit: 500 });
+
+  //   for (const gift of gifts) {
+  //     if (!gift.productUrl) continue;
+  //     const betterImageUrl = await this.getBetterProductImageUrl(
+  //       gift.productUrl,
+  //     );
+
+  //     if (betterImageUrl && betterImageUrl !== gift.imageUrl) {
+  //       console.log(
+  //         '🚀 ~ GiftsService ~ testThing ~ betterImageUrl && betterImageUrl !== gift.productUrl:',
+  //         betterImageUrl && betterImageUrl !== gift.imageUrl,
+  //       );
+  //       console.log(
+  //         '🚀 ~ GiftsService ~ testThing ~ gift.imageUrl:',
+  //         gift.imageUrl,
+  //       );
+  //       console.log(
+  //         '🚀 ~ GiftsService ~ gifts.forEach ~ betterImageUrl:',
+  //         betterImageUrl,
+  //       );
+  //       await this.giftModel.updateOne(
+  //         { _id: gift._id },
+  //         { $set: { imageUrl: betterImageUrl } },
+  //       );
+  //     }
+  //   }
+  //   console.log('🚀 ~ GiftsService ~ DONE!');
+  // }
+
   private createSearchParam = (itemName: string) =>
     `&itemSearchKeyword=${encodeURIComponent(itemName)}`;
 
@@ -89,7 +120,7 @@ export class GiftsService {
   }: {
     limit?: number;
     skip?: number;
-    filter?: Partial<AmazonProduct>;
+    filter?: FilterQuery<GiftDocument>;
     sort?: SortFields;
   }): Promise<Gift[]> {
     let query = this.giftModel.find(filter);
@@ -199,7 +230,7 @@ export class GiftsService {
   public async monitorAndUpdateGiftList() {
     const savedGifts = await this.getGifts({
       limit: 1000,
-      filter: { isActive: true },
+      filter: { isActive: true, id: { $exists: true } },
     });
 
     for (let i = 0; i < savedGifts.length; i++) {
@@ -254,9 +285,16 @@ export class GiftsService {
   public async getBetterProductImageUrl(
     url: string,
   ): Promise<string | undefined> {
-    const selector = await cheerio.fromURL(url);
+    const result = await fetch(url, {
+      headers: {
+        'User-Agent':
+          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/534.30 (KHTML, like Gecko) Chrome/12.0.742.112 Safari/534.30',
+      },
+    }).then((res) => res.text());
+    const selector = cheerio.load(result);
     const body = selector('body');
-    const imageUrl = body.find(`#imgTagWrapperId > img`).attr('src');
+    const imageTag = body.find(`#landingImage`);
+    const imageUrl = imageTag.attr('src');
     return imageUrl;
   }
 
@@ -311,7 +349,7 @@ export class GiftsService {
     const betterImageUrl = await this.getBetterProductImageUrl(item.productUrl);
     return {
       ...item,
-      imageUrl: betterImageUrl || item.imageUrl,
+      imageUrl: betterImageUrl ?? item.imageUrl,
     };
   }
 

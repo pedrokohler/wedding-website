@@ -29,7 +29,7 @@ function GiftGrid({ products }: { products: GiftCardProduct[] }) {
             style={{
               margin: "16px 0",
             }}
-            key={product.id}
+            key={product._id}
           >
             <GiftCard
               product={product}
