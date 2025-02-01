@@ -7,18 +7,18 @@ import { useQuery } from "@tanstack/react-query";
 import FlowerSeparator from "../../assets/separador2.svg";
 import { PageSeparator } from "../PageSeparator";
 import GiftGrid from "../GiftGrid";
-import { ErrorResponse, GiftCardProduct } from "../../types";
-
-
-
+import { ErrorResponse, GiftsDto, SortFields } from "../../types";
+import { determineIfIsErrorResponse } from "../../utils/determineIfIsErrorMessage";
 
 export const GiftsSection = () => {
-  const { isPending, error, data } = useQuery<GiftCardProduct[] | ErrorResponse>({
+  const { isPending, error, data } = useQuery<GiftsDto | ErrorResponse>({
     queryKey: ["gifts-home-page"],
     queryFn: () =>
-      fetch(`${import.meta.env.VITE_API_URL}/gifts?limit=3`).then((res) =>
-        res.json()
-      ),
+      fetch(
+        `${import.meta.env.VITE_API_URL}/gifts?limit=3&sort=${
+          SortFields["manualOrdering:asc"]
+        }`
+      ).then((res) => res.json()),
   });
   const navigate = useNavigate();
   const isAbove500w = useMediaQuery("(min-width: 500px)");
@@ -46,7 +46,7 @@ export const GiftsSection = () => {
         "Carregando..."
       ) : error !== null ? (
         "Ocorreu um erro: " + error.message
-      ) : data && !Array.isArray(data) ? (
+      ) : determineIfIsErrorResponse(data) ? (
         "Ocorreu um erro: " + data.message
       ) : (
         <>
@@ -61,7 +61,7 @@ export const GiftsSection = () => {
             presente e, se quiser nos agradar ainda mais, será um gesto que
             vamos receber com muito carinho.
           </div>
-          <GiftGrid products={data} />
+          <GiftGrid products={data.items} />
           <Button
             style={{
               alignSelf: "center",

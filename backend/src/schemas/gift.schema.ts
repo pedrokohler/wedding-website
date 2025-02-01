@@ -28,6 +28,9 @@ export class Gift {
 
   @Prop()
   isActive: boolean;
+
+  @Prop({ type: 'double' })
+  manualOrdering: number;
 }
 
 export const GiftSchema = SchemaFactory.createForClass(Gift);

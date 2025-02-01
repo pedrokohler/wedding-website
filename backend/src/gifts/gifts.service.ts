@@ -7,15 +7,25 @@ import { TelegramBotService } from 'src/telegram-bot/telegram-bot.service';
 import { ConfigService } from '@nestjs/config';
 
 type AmazonProduct = {
-  id: string | undefined;
-  name: string | undefined;
-  searchTerm: string | undefined;
+  id?: string;
+  name?: string;
+  searchTerm?: string;
   priceInCents: number;
-  imageUrl: string | undefined;
+  imageUrl?: string;
   productUrl: string;
   description: string;
   isActive: boolean;
+  manualOrdering?: number;
 };
+
+export enum SortFields {
+  'name:asc' = 'name',
+  'priceInCents:asc' = 'priceInCents',
+  'manualOrdering:asc' = 'manualOrdering',
+  'name:desc' = '-name',
+  'priceInCents:desc' = '-priceInCents',
+  'manualOrdering:desc' = '-manualOrdering',
+}
 
 @Injectable()
 export class GiftsService {
@@ -46,14 +56,53 @@ export class GiftsService {
   private createSearchParam = (itemName: string) =>
     `&itemSearchKeyword=${encodeURIComponent(itemName)}`;
 
-  public async getGifts({
-    limit,
+  public async getPaginatedGifts({
+    limit = 20,
+    skip = 0,
     filter = {},
+    sort,
   }: {
-    limit: number;
+    limit?: number;
+    skip?: number;
     filter?: Partial<AmazonProduct>;
+    sort?: SortFields;
+  }) {
+    const items = await this.getGifts({ limit, skip, filter, sort });
+    const totalItems = await this.giftModel.countDocuments(filter);
+    const currentPage = Math.floor(skip / limit);
+    const totalPages = Math.ceil(totalItems / limit) - 1;
+    const nextPage = currentPage >= totalPages ? null : currentPage + 1;
+
+    return {
+      items,
+      currentPage,
+      totalPages,
+      nextPage,
+    };
+  }
+
+  public async getGifts({
+    limit = 20,
+    skip = 0,
+    filter = {},
+    sort,
+  }: {
+    limit?: number;
+    skip?: number;
+    filter?: Partial<AmazonProduct>;
+    sort?: SortFields;
   }): Promise<Gift[]> {
-    const gifts = await this.giftModel.find(filter).limit(limit);
+    let query = this.giftModel.find(filter);
+
+    if (sort) {
+      query = query.sort(sort);
+    }
+
+    if (skip) {
+      query = query.skip(skip);
+    }
+
+    const gifts = await query.limit(limit);
     return gifts;
   }
 
@@ -62,17 +111,58 @@ export class GiftsService {
     return createdGift.save();
   }
 
+  // public async deleteWrongItems() {
+  //   const savedGifts = await this.getGifts({
+  //     limit: 1000,
+  //   });
+
+  //   const promises = savedGifts.map((gift) => {
+  //     if (gift.id) {
+  //       return;
+  //     }
+  //     return this.giftModel.deleteOne({ _id: gift._id });
+  //   });
+
+  //   await Promise.all(promises);
+  // }
+
+  // public async resetGiftsOrder() {
+  //   const savedGifts = await this.getGifts({
+  //     limit: 1000,
+  //   });
+
+  //   savedGifts.forEach((gift, index) => {
+  //     if (gift.manualOrdering) {
+  //       const createdGift = new this.giftModel(Gift);
+  //       createdGift.updateOne({ id: gift.id }, gift);
+  //       return;
+  //     }
+  //     const createdGift = new this.giftModel(Gift);
+  //     createdGift.updateOne(
+  //       { id: gift.id },
+  //       { ...gift, manualOrdering: index },
+  //     );
+  //   });
+  // }
+
   public async searchKeywordForNewProducts(keyword: string) {
     const url = `${this.wishlistUrl}${this.createSearchParam(keyword)}`;
     const items = await this.scrapeList({ url, shouldGetBetterImage: true });
 
-    const savedGifts = await this.getGifts({ limit: 1000 });
+    const savedGifts = await this.getGifts({
+      limit: 1000,
+      sort: SortFields['manualOrdering:desc'],
+    });
+
     const alreadySavedIds = savedGifts.map((item) => item.id);
     const newProducts: AmazonProduct[] = [];
+    let lastOrderingIndex = savedGifts[0].manualOrdering;
     items.forEach((item) => {
       if (alreadySavedIds.includes(item.id as string)) {
         return;
       }
+      lastOrderingIndex++;
+      item.manualOrdering = lastOrderingIndex;
       newProducts.push(item);
       this.saveGift(item);
     });
@@ -80,23 +170,23 @@ export class GiftsService {
     return newProducts;
   }
 
-  public async populateGiftsDb(url: string) {
-    const savedGifts = await this.getGifts({ limit: 1000 });
-    const alreadySavedIds = savedGifts.map((item) => item.id);
+  // public async populateGiftsDb(url: string) {
+  //   const savedGifts = await this.getGifts({ limit: 1000 });
+  //   const alreadySavedIds = savedGifts.map((item) => item.id);
 
-    const items = await this.scrapeList({
-      url,
-      shouldGetBetterImage: true,
-    });
+  //   const items = await this.scrapeList({
+  //     url,
+  //     shouldGetBetterImage: true,
+  //   });
 
-    items.forEach((item) => {
-      if (alreadySavedIds.includes(item.id as string)) {
-        return;
-      }
+  //   items.forEach((item) => {
+  //     if (alreadySavedIds.includes(item.id as string)) {
+  //       return;
+  //     }
 
-      this.saveGift(item);
-    });
-  }
+  //     this.saveGift(item);
+  //   });
+  // }
 
   private async monitorAndUpdateGiftListRecursive(interval: number) {
     await this.monitorAndUpdateGiftList();
