@@ -37,7 +37,7 @@ const ChildrenInput = ({
         color: "black",
       }}
     >
-      <span>Crianças:</span>
+      <span>Crianças acima de 12 anos:</span>
       <IconButton
         icon={DashCircle}
         onClick={() => {
