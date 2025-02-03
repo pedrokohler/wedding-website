@@ -92,7 +92,8 @@ export const FooterSection = () => {
     <Stack
       style={{
         padding: "1em",
-        height: "20vh",
+        minHeight: "fit-content",
+        height: "20%",
         width: "100vw",
         backgroundColor: "#000C1E",
         justifyContent: "center",
