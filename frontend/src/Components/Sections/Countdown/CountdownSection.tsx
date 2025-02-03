@@ -41,7 +41,7 @@ const CountdownSection = (
           alignSelf: "center",
         }}
       >
-        31 de maio de 2025, às 15:00 em ponto
+        31 de maio de 2025, às 14:30
       </h2>
     </Stack>
   );

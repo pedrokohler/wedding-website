@@ -28,3 +28,7 @@ export enum SortFields {
   "priceInCents:desc" = "-priceInCents",
   "manualOrdering:desc" = "-manualOrdering",
 }
+
+export type VisitorsDto = {
+  uniqueSessionsCount: number;
+};

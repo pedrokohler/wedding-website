@@ -6,10 +6,7 @@ import {
   useLocalStorage,
   useSessionStorage,
 } from "usehooks-ts";
-
-type VisitorsDto = {
-  uniqueSessionsCount: number;
-};
+import { VisitorsDto } from "../../types";
 
 const updateCount = async ({
   hasVisitedSession,
@@ -111,11 +108,9 @@ export const FooterSection = () => {
         <b
           style={{ color: "#A47124", fontSize: "1.1em", fontWeight: "bolder" }}
         >
-          {
-            isPending || error || typeof data.uniqueSessionsCount !== "number"
-              ? "????"
-              : data.uniqueSessionsCount + 8732 /** this is just a joke */
-          }
+          {isPending || error || typeof data.uniqueSessionsCount !== "number"
+            ? "????"
+            : data.uniqueSessionsCount}
         </b>{" "}
         visitas ao site até o momento
       </div>

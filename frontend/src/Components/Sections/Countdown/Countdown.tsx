@@ -54,7 +54,7 @@ export const Countdown = () => {
   const isAbove1000w = useMediaQuery("(min-width: 1080px)");
 
   useEffect(() => {
-    const finalDate = new Date("2025/05/31 15:00:00 GMT-0300");
+    const finalDate = new Date("2025/05/31 14:30:00 GMT-0300");
     const intervalId = setInterval(() => {
       const currentDate = new Date();
       const timeDifference =
