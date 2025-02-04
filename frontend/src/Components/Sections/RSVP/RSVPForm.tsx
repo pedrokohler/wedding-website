@@ -32,47 +32,57 @@ const ChildrenInput = ({
     <div
       style={{
         display: "flex",
-        flexDirection: "row",
-        justifyContent: "start",
+        flexDirection: isAbove400w ? "row" : "column",
+        justifyContent: isAbove400w ? "space-between" : "start",
         alignItems: "center",
         color: "black",
       }}
     >
-      <span>Crianças acima de 12 anos:</span>
-      <IconButton
+      <span>Dependentes (12+ anos):</span>
+      <div
         style={{
-          padding: isAbove400w ? "0 16px" : "0 4px",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "start",
+          alignItems: "center",
+          color: "black",
         }}
-        icon={DashCircle}
-        onClick={() => {
-          const newValue = value - 1;
-          if (isValidValue(newValue)) {
-            setValue(newValue);
-          }
-        }}
-      />
-      <NumberInput
-        id="children"
-        placeholder="0"
-        value={value}
-        onChange={(e) => {
-          if (isValidValue(Number(e.target.value))) {
-            onChange(e);
-          }
-        }}
-      />
-      <IconButton
-        style={{
-          padding: isAbove400w ? "0 16px" : "0 4px",
-        }}
-        icon={PlusCircle}
-        onClick={() => {
-          const newValue = value + 1;
-          if (isValidValue(newValue)) {
-            setValue(newValue);
-          }
-        }}
-      />
+      >
+        <IconButton
+          style={{
+            padding: "0 8px",
+          }}
+          icon={DashCircle}
+          onClick={() => {
+            const newValue = value - 1;
+            if (isValidValue(newValue)) {
+              setValue(newValue);
+            }
+          }}
+        />
+        <NumberInput
+          id="children"
+          placeholder="0"
+          value={value}
+          onChange={(e) => {
+            if (isValidValue(Number(e.target.value))) {
+              onChange(e);
+            }
+          }}
+        />
+        <IconButton
+          style={{
+            padding: "0 8px",
+          }}
+          icon={PlusCircle}
+          onClick={() => {
+            const newValue = value + 1;
+            if (isValidValue(newValue)) {
+              setValue(newValue);
+            }
+          }}
+        />
+      </div>
     </div>
   );
 };
