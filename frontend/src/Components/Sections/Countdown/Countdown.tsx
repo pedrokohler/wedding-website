@@ -49,9 +49,10 @@ function dateDiff(a: Date, b: Date) {
 
 export const Countdown = () => {
   const [counterValues, setCounterValues] = useState(["0", "0", "0", "0"]);
-  const isAbove500w = useMediaQuery("(min-width: 550px)");
-  const isAbove750w = useMediaQuery("(min-width: 770px)");
-  const isAbove1000w = useMediaQuery("(min-width: 1080px)");
+  const isAbove400w = useMediaQuery("(min-width: 400px)");
+  const isAbove550w = useMediaQuery("(min-width: 550px)");
+  const isAbove770w = useMediaQuery("(min-width: 770px)");
+  const isAbove1080w = useMediaQuery("(min-width: 1080px)");
 
   useEffect(() => {
     const finalDate = new Date("2025/05/31 14:30:00 GMT-0300");
@@ -72,13 +73,15 @@ export const Countdown = () => {
   return (
     <Container
       style={{
-        padding: isAbove1000w
+        padding: isAbove1080w
           ? "0 250px"
-          : isAbove750w
+          : isAbove770w
           ? "0 150px"
-          : isAbove500w
+          : isAbove550w
           ? "0 100px"
-          : "0 50px",
+          : isAbove400w
+          ? "0 50px"
+          : "0 16px",
       }}
     >
       <Row xs="4">

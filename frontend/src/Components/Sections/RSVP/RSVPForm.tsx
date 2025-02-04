@@ -22,6 +22,7 @@ const ChildrenInput = ({
   setValue: React.Dispatch<React.SetStateAction<number>>;
   onChange: ChangeEventHandler<HTMLInputElement>;
 }) => {
+  const isAbove400w = useMediaQuery("(min-width: 400px)");
   const isValidValue = (newValue: number) => {
     if (newValue >= 0 && newValue <= 10) {
       return true;
@@ -39,6 +40,9 @@ const ChildrenInput = ({
     >
       <span>Crianças acima de 12 anos:</span>
       <IconButton
+        style={{
+          padding: isAbove400w ? "0 16px" : "0 4px",
+        }}
         icon={DashCircle}
         onClick={() => {
           const newValue = value - 1;
@@ -58,6 +62,9 @@ const ChildrenInput = ({
         }}
       />
       <IconButton
+        style={{
+          padding: isAbove400w ? "0 16px" : "0 4px",
+        }}
         icon={PlusCircle}
         onClick={() => {
           const newValue = value + 1;

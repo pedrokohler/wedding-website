@@ -14,7 +14,7 @@ export function NumberInput({
 }) {
   return (
     <Form.Control
-      style={{ maxWidth: "48px" }}
+      style={{ maxWidth: "48px", minWidth: "20px" }}
       type="number"
       id={id}
       placeholder={placeholder}
