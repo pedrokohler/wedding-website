@@ -14,6 +14,9 @@ const bitcoinAddress = "bc1q6zu2cruhn4xaadgtfsjv4d6tfzjgqfuzp86wyd";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function GiftModal({ onHide, show, product }: any) {
+  const [deliveryAddress] = useState(
+    "Av. Cristóvão Colombo, 157, apto. 904, Savassi - Belo Horizonte - 30140-150"
+  );
   const [, copy] = useCopyToClipboard();
   const [pixMessage, setPixMessage] = useState("");
   const [qrCode, setQRCode] = useState("");
@@ -157,6 +160,19 @@ export function GiftModal({ onHide, show, product }: any) {
                     </a>
                     . Não se esqueça de se certificar que está enviando para o
                     endereço correto antes de finalizar a compra.
+                  </div>
+                  <div>
+                    Caso o endereço não apareça, você pode usar o seguinte
+                    endereço:{" "}
+                  </div>
+                  <div style={{ textWrap: "wrap", overflowWrap: "break-word" }}>
+                    <span style={{ fontSize: "0.65em" }}>
+                      {deliveryAddress}
+                    </span>
+                    <IconButton
+                      onClick={() => copy(deliveryAddress)}
+                      icon={Copy}
+                    />
                   </div>
                 </>
               ),
