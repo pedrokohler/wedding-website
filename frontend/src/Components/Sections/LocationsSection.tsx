@@ -1,6 +1,6 @@
 import Stack from "react-bootstrap/Stack";
 import { Col, Row } from "react-bootstrap";
-import { useMediaQuery } from "usehooks-ts";
+import { useCopyToClipboard, useMediaQuery } from "usehooks-ts";
 
 import Church from "../../assets/igreja.svg";
 
@@ -15,12 +15,27 @@ const Address = ({
   firstLine: string;
   secondLine: string;
 }) => {
+  const [, copy] = useCopyToClipboard();
   return (
     <Stack>
       <h2 className="text-gold">{eventName}</h2>
-      <h5 style={{ color: "black", fontWeight: "bold" }}>{locationName}</h5>
-      <p style={{ color: "black" }}>{firstLine}</p>
-      <p style={{ color: "black" }}>{secondLine}</p>
+      <h5 style={{ fontWeight: "bold" }}>{locationName}</h5>
+      <p>{firstLine}</p>
+      <p>{secondLine}</p>
+      <p
+        style={{
+          fontSize: "0.65em",
+          cursor: "pointer",
+          userSelect: "none",
+          width: "fit-content",
+          alignSelf: "center",
+          fontFamily: "Inter",
+        }}
+        className="copy-address"
+        onClick={() => copy(`${locationName}, ${firstLine} - ${secondLine}`)}
+      >
+        COPIAR ENDEREÇO
+      </p>
     </Stack>
   );
 };

@@ -133,3 +133,7 @@ input[type="number"] {
     box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.25) !important;
   }
 }
+
+.copy-address:active {
+  text-shadow: 0.5px 0.5px 0.5px #1b4a92;
+}
