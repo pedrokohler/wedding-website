@@ -55,7 +55,7 @@ export const Countdown = () => {
   const isAbove1080w = useMediaQuery("(min-width: 1080px)");
 
   useEffect(() => {
-    const finalDate = new Date("2025-05-31T17:30:00.000Z");
+    const finalDate = new Date(import.meta.env.VITE_BIG_DAY);
     const intervalId = setInterval(() => {
       const currentDate = new Date();
       const timeDifference =

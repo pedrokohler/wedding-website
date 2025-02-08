@@ -1,10 +1,11 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import Badge from "react-bootstrap/Badge";
+
 import { convertPriceInCentsToPriceString } from "../utils/price";
 import { GiftCardProduct } from "../types";
 
-
-const treatProductTitle = (product: GiftCardProduct) => {
+const formatProductTitle = (product: GiftCardProduct) => {
   const MAX_TITLE_LENGTH = 30;
 
   const slicedTitle =
@@ -30,7 +31,7 @@ function GiftCard({
   onClick: () => void;
 }) {
   const isDisabled = !product.isActive;
-  const displayTitle = treatProductTitle(product);
+  const displayTitle = formatProductTitle(product);
   return (
     <Card
       style={{
@@ -41,6 +42,14 @@ function GiftCard({
         opacity: isDisabled ? 0.4 : 1,
       }}
     >
+      {isDisabled && (
+        <Badge
+          style={{ position: "absolute", fontFamily: "Inter" }}
+          bg="secondary"
+        >
+          Já é nosso!
+        </Badge>
+      )}
       <Card.Img
         variant="top"
         src={product.imageUrl}
