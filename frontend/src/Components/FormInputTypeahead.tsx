@@ -60,7 +60,7 @@ export default function FormInputTypeahead<T extends FieldValues>({
     "blur",
     (e) => {
       e.stopPropagation();
-      setTimeout(() => setIsFocused(false), 500);
+      setTimeout(() => setIsFocused(false), 100);
     },
     containerRef
   );
@@ -114,7 +114,7 @@ export default function FormInputTypeahead<T extends FieldValues>({
         ) : (
           <></>
         )}
-        {isFocused && !isFromList && options.length > 0 && (
+        {isFocused && !isFromList && (
           <ListGroup
             style={{
               position: "absolute",
@@ -125,22 +125,36 @@ export default function FormInputTypeahead<T extends FieldValues>({
               zIndex: 999,
             }}
           >
-            {options.map((option) => {
-              return (
-                <ListGroup.Item
-                  key={option}
-                  className="typeahead-list-group-item"
-                  style={{
-                    padding: "0.3rem 1.3rem",
-                    backgroundColor: "#fff",
-                    border: 0,
-                  }}
-                  onClick={() => onNameSelected(option)}
-                >
-                  {option}
-                </ListGroup.Item>
-              );
-            })}
+            {options.length
+              ? options.map((option) => {
+                  return (
+                    <ListGroup.Item
+                      key={option}
+                      className="typeahead-list-group-item"
+                      style={{
+                        padding: "0.3rem 1.3rem",
+                        backgroundColor: "#fff",
+                        border: 0,
+                      }}
+                      onClick={() => onNameSelected(option)}
+                    >
+                      {option}
+                    </ListGroup.Item>
+                  );
+                })
+              : !isLoading && (
+                  <ListGroup.Item
+                    className="typeahead-list-group-item"
+                    style={{
+                      padding: "0.3rem 1.3rem",
+                      backgroundColor: "#fff",
+                      border: 0,
+                    }}
+                    disabled
+                  >
+                    Convidado não encontrado
+                  </ListGroup.Item>
+                )}
             {isLoading && (
               <div
                 style={{
@@ -148,6 +162,7 @@ export default function FormInputTypeahead<T extends FieldValues>({
                   padding: "20px",
                   justifyContent: "center",
                   alignItems: "center",
+                  backgroundColor: "white",
                   border: "1px solid rgba(0, 0, 0, 0.125)",
                 }}
               >

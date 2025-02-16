@@ -72,8 +72,32 @@ Nova confirmação recebida
     });
   }
 
+  generalizeString(str: string) {
+    return str
+      .replace(/a/g, '[a,á,à,ä,â]')
+      .replace(/A/g, '[A,A,Á,À,Ä,Â]')
+      .replace(/e/g, '[e,é,ë,è]')
+      .replace(/E/g, '[E,E,É,Ë,È]')
+      .replace(/i/g, '[i,í,ï,ì]')
+      .replace(/I/g, '[I,I,Í,Ï,Ì]')
+      .replace(/o/g, '[o,ó,ö,ò]')
+      .replace(/O/g, '[O,O,Ó,Ö,Ò]')
+      .replace(/u/g, '[u,ü,ú,ù]')
+      .replace(/U/g, '[U,U,Ü,Ú,Ù]')
+      .replace(/c/g, '[c,ç]')
+      .replace(/C/g, '[C,Ç]');
+  }
+
+  stripDiacritics(str: string): string {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  }
+
+  normalizeString(str: string): string {
+    return this.generalizeString(this.stripDiacritics(str));
+  }
+
   async getInvitations(filter: string) {
-    const regex = new RegExp(filter, 'ig');
+    const regex = new RegExp(this.normalizeString(filter), 'ig');
     const matchedInvitations = await this.invitationModel
       .find({
         name: regex,
