@@ -1,4 +1,4 @@
-import { ChangeEvent } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import { Form, ListGroup, Spinner } from "react-bootstrap";
 import {
   FieldErrors,
@@ -11,6 +11,7 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
+import { useEventListener } from "usehooks-ts";
 
 export default function FormInputTypeahead<T extends FieldValues>({
   options = [],
@@ -39,8 +40,10 @@ export default function FormInputTypeahead<T extends FieldValues>({
   isFromList: boolean;
   setIsFromList: (val: boolean) => void;
 }) {
+  const containerRef = useRef<HTMLInputElement>(null);
+  const [isFocused, setIsFocused] = useState(false);
   const value = watch(name);
-  const { onChange, ...rest } = register(name, registerOptions);
+  const { onChange, ref, ...rest } = register(name, registerOptions);
 
   const handleInputChange = (e: ChangeEvent) => {
     onChange(e);
@@ -52,6 +55,24 @@ export default function FormInputTypeahead<T extends FieldValues>({
     setIsFromList(true);
     clearErrors(name);
   };
+
+  useEventListener(
+    "blur",
+    (e) => {
+      e.stopPropagation();
+      setTimeout(() => setIsFocused(false), 500);
+    },
+    containerRef
+  );
+
+  useEventListener(
+    "focus",
+    (e) => {
+      e.stopPropagation();
+      setIsFocused(true);
+    },
+    containerRef
+  );
 
   return (
     <div
@@ -73,6 +94,11 @@ export default function FormInputTypeahead<T extends FieldValues>({
           value={value}
           placeholder={placeholder}
           {...rest}
+          ref={(e: HTMLInputElement | null) => {
+            ref(e);
+            // @ts-expect-error it will work anyway
+            containerRef.current = e;
+          }}
         />
         {errors[name] && typeof errors[name].message === "string" ? (
           <sub
@@ -88,7 +114,7 @@ export default function FormInputTypeahead<T extends FieldValues>({
         ) : (
           <></>
         )}
-        {!isFromList && options.length > 0 && (
+        {isFocused && !isFromList && options.length > 0 && (
           <ListGroup
             style={{
               position: "absolute",

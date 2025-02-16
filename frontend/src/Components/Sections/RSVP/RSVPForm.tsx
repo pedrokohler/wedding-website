@@ -124,13 +124,13 @@ export const RSVPForm = () => {
   const { showModal } = useContext(ModalContext);
 
   const handleError = useCallback(
-    (error: unknown) => {
-      console.error(error);
+    (data: unknown) => {
+      console.error(data);
       showModal({
         header: "Erro",
         message:
-          (error as any)?.error?.message ??
-          "Houve um problema ao confirmar presença.",
+          (data as { error: { message: string } })?.error?.message ??
+          "Houve um problema ao confirmar sua presença.",
       });
     },
     [showModal]
