@@ -1,9 +1,9 @@
 import { ChangeEventHandler, useCallback, useContext, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import Stack from "react-bootstrap/Stack";
 import { DashCircle, PlusCircle } from "react-bootstrap-icons";
 import Button from "react-bootstrap/esm/Button";
-import { useMediaQuery } from "usehooks-ts";
+import { useDebounceValue, useMediaQuery } from "usehooks-ts";
 import { useForm } from "react-hook-form";
 
 import { FormInput } from "../../FormInput";
@@ -12,6 +12,7 @@ import { IconButton } from "../../IconButton";
 import { ModalContext } from "../../../contexts/modalContext";
 import { createRegisterOptions } from "../../../utils/createRegisterOptions";
 import { telephoneMask } from "../../../utils/telephoneMask";
+import FormInputTypeahead from "../../FormInputTypeahead";
 
 const ChildrenInput = ({
   value,
@@ -94,12 +95,26 @@ type GuestDto = {
   phone: string;
 };
 
+async function findInvitees({ queryKey: [, term] }: { queryKey: string[] }) {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/guests/invitations?name=${term}`
+  );
+  const json = await response.json();
+  const words = (json || [])
+    .map((invitee: { name: string; confirmed: boolean }) => invitee.name)
+    .sort();
+  return words;
+}
+
 export const RSVPForm = () => {
   const {
     register,
     handleSubmit,
     resetField,
     formState: { errors },
+    setValue,
+    clearErrors,
+    watch,
   } = useForm<GuestDto>();
 
   const [children, setChildren] = useState(0);
@@ -113,7 +128,9 @@ export const RSVPForm = () => {
       console.error(error);
       showModal({
         header: "Erro",
-        message: "Houve um problema ao confirmar presença.",
+        message:
+          (error as any)?.error?.message ??
+          "Houve um problema ao confirmar presença.",
       });
     },
     [showModal]
@@ -130,11 +147,18 @@ export const RSVPForm = () => {
         },
       });
     },
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       if (data.status >= 400) {
+        let error;
+        try {
+          error = await data.json();
+        } catch (e) {
+          console.error("failed to parse error", e);
+        }
         return handleError({
           status: data.status,
           message: data.statusText,
+          error,
         });
       }
       setChildren(0);
@@ -146,6 +170,18 @@ export const RSVPForm = () => {
     onError: handleError,
   });
 
+  const name = watch("name") ?? "";
+  const [isNameFromList, setIsNameFromList] = useState(false);
+
+  const [debouncedName] = useDebounceValue(name, 300);
+
+  const { data: options, isLoading } = useQuery({
+    queryKey: ["words", debouncedName],
+    queryFn: findInvitees,
+    enabled: name.length > 0,
+    staleTime: 10 * 1000,
+  });
+
   return (
     <Stack
       style={{
@@ -155,17 +191,29 @@ export const RSVPForm = () => {
       }}
       gap={2}
     >
-      <FormInput
+      <FormInputTypeahead
         errors={errors}
+        clearErrors={clearErrors}
         name="name"
         placeholder="Nome"
         register={register}
-        registerOptions={createRegisterOptions({
-          required: true,
-          minLength: 3,
-          maxLength: 30,
-        })}
-        type="text"
+        registerOptions={{
+          ...createRegisterOptions({
+            required: true,
+            minLength: 3,
+            maxLength: 30,
+          }),
+          validate: {
+            checkIsFromList: () =>
+              isNameFromList || "Selecione uma das opções da lista.",
+          },
+        }}
+        options={options}
+        isFromList={isNameFromList}
+        setIsFromList={setIsNameFromList}
+        watch={watch}
+        setValue={setValue}
+        isLoading={isLoading}
       />
       <FormInput
         errors={errors}

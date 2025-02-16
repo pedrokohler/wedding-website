@@ -137,3 +137,9 @@ input[type="number"] {
 .copy-address:active {
   text-shadow: 0.5px 0.5px 0.5px #1b4a92;
 }
+
+.typeahead-list-group-item:hover {
+  cursor: pointer;
+  background-color: #4e72aa !important;
+  color: white;
+}
