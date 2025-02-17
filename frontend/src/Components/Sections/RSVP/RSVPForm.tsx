@@ -178,7 +178,7 @@ export const RSVPForm = () => {
   const { data: options, isLoading } = useQuery({
     queryKey: ["words", debouncedName],
     queryFn: findInvitees,
-    enabled: name.length > 0,
+    enabled: name.length > 1,
     staleTime: 10 * 1000,
   });
 
