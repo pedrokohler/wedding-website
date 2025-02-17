@@ -116,7 +116,7 @@ export const FooterSection = () => {
         visitas ao site até o momento
       </div>
       <div>
-        <span>&copy;</span> Pedro Köhler {new Date().getFullYear()}
+        <span>&copy;</span> {new Date().getFullYear()} Pedro Köhler
       </div>
     </Stack>
   );

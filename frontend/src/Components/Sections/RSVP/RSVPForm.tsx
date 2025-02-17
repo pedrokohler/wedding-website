@@ -240,11 +240,11 @@ export const RSVPForm = () => {
         registerOptions={{
           required: { value: true, message: "Campo obrigatório" },
           minLength: {
-            value: 15,
+            value: 14,
             message: "Insira um telefone válido",
           },
           pattern: {
-            value: /\(([0-9]{2})\)\s([987]{1})?([0-9]{4})-([0-9]{4})/,
+            value: /\(([0-9]{2})\)\s[987]?([0-9]{4})-([0-9]{4})$/,
             message: "Insira um telefone válido",
           },
         }}
