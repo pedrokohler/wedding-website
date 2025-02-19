@@ -19,6 +19,7 @@ Sentry.init({
       createRoutesFromChildren,
       matchRoutes,
     }),
+    Sentry.replayIntegration(),
   ],
   tracesSampleRate: 1.0,
 
