@@ -111,96 +111,110 @@ export function GiftModal({ onHide, show, product }: any) {
             {
               shouldRender:
                 product.allowUnrestrictedPix || product.priceInCents,
-              component: (index: number) => (
-                <>
-                  <h5>
-                    {index} - Fazer um <b>PIX</b>:
-                  </h5>
-                  <div>
-                    Escaneie o QR Code abaixo para enviar o valor diretamente
-                    aos noivos:
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <img src={qrCode} />
-                    <TextArea
-                      id="pixMessage"
-                      placeholder="Digite aqui a sua mensagem PIX antes de escanear o QR code"
-                      value={pixMessage}
-                      onChange={(e) =>
-                        setPixMessage(e.target.value.slice(0, 60))
-                      }
-                    />
-                  </div>
-                  <div>Ou copie o código pix a seguir: </div>
-                  <div style={{ textWrap: "wrap", overflowWrap: "break-word" }}>
-                    <span style={{ fontSize: "0.65em" }}>{pixString}</span>
-                    <IconButton onClick={() => copy(pixString)} icon={Copy} />
-                  </div>
-                </>
-              ),
+              component: (index: number) => () =>
+                (
+                  <>
+                    <h5>
+                      {index} - Fazer um <b>PIX</b>:
+                    </h5>
+                    <div>
+                      Escaneie o QR Code abaixo para enviar o valor diretamente
+                      aos noivos:
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <img src={qrCode} />
+                      <TextArea
+                        id="pixMessage"
+                        placeholder="Digite aqui a sua mensagem PIX antes de escanear o QR code"
+                        value={pixMessage}
+                        onChange={(e) =>
+                          setPixMessage(e.target.value.slice(0, 60))
+                        }
+                      />
+                    </div>
+                    <div>Ou copie o código pix a seguir: </div>
+                    <div
+                      style={{ textWrap: "wrap", overflowWrap: "break-word" }}
+                    >
+                      <span style={{ fontSize: "0.65em" }}>{pixString}</span>
+                      <IconButton onClick={() => copy(pixString)} icon={Copy} />
+                    </div>
+                  </>
+                ),
             },
             {
               shouldRender: product.productUrl,
-              component: (index: number) => (
-                <>
-                  <h5>
-                    {index} - Comprar o item pela nossa lista da <b>Amazon</b>:
-                  </h5>
-                  <div>
-                    O endereço de entrega dos noivos estará disponível no
-                    checkout ao comprar por{" "}
-                    <a href={product.productUrl} target="_blank">
-                      este link
-                    </a>
-                    . Não se esqueça de se certificar que está enviando para o
-                    endereço correto antes de finalizar a compra.
-                  </div>
-                  <div>
-                    Caso o endereço não apareça, você pode usar o seguinte
-                    endereço:{" "}
-                  </div>
-                  <div style={{ textWrap: "wrap", overflowWrap: "break-word" }}>
-                    <span style={{ fontSize: "0.65em" }}>
-                      {deliveryAddress}
-                    </span>
-                    <IconButton
-                      onClick={() => copy(deliveryAddress)}
-                      icon={Copy}
-                    />
-                  </div>
-                </>
-              ),
+              component: (index: number) => () =>
+                (
+                  <>
+                    <h5>
+                      {index} - Comprar o item pela nossa lista da <b>Amazon</b>
+                      :
+                    </h5>
+                    <div>
+                      O endereço de entrega dos noivos estará disponível no
+                      checkout ao comprar por{" "}
+                      <a href={product.productUrl} target="_blank">
+                        este link
+                      </a>
+                      . Não se esqueça de se certificar que está enviando para o
+                      endereço correto antes de finalizar a compra.
+                    </div>
+                    <div>
+                      Caso o endereço não apareça, você pode usar o seguinte
+                      endereço:{" "}
+                    </div>
+                    <div
+                      style={{ textWrap: "wrap", overflowWrap: "break-word" }}
+                    >
+                      <span style={{ fontSize: "0.65em" }}>
+                        {deliveryAddress}
+                      </span>
+                      <IconButton
+                        onClick={() => copy(deliveryAddress)}
+                        icon={Copy}
+                      />
+                    </div>
+                  </>
+                ),
             },
             {
               shouldRender: true,
-              component: (index: number) => (
-                <>
-                  <h5>
-                    {index} - Enviar <b>Bitcoin</b> para a carteira dos noivos:
-                  </h5>
-                  <div>
-                    <b style={{ textWrap: "wrap", overflowWrap: "break-word" }}>
-                      <span style={{ fontSize: "0.65em" }}>
-                        {bitcoinAddress}
-                      </span>
-                    </b>
-                    <IconButton
-                      onClick={() => copy(bitcoinAddress)}
-                      icon={Copy}
-                    />
-                  </div>
-                </>
-              ),
+              component: (index: number) => () =>
+                (
+                  <>
+                    <h5>
+                      {index} - Enviar <b>Bitcoin</b> para a carteira dos
+                      noivos:
+                    </h5>
+                    <div>
+                      <b
+                        style={{ textWrap: "wrap", overflowWrap: "break-word" }}
+                      >
+                        <span style={{ fontSize: "0.65em" }}>
+                          {bitcoinAddress}
+                        </span>
+                      </b>
+                      <IconButton
+                        onClick={() => copy(bitcoinAddress)}
+                        icon={Copy}
+                      />
+                    </div>
+                  </>
+                ),
             },
           ]
             .filter(({ shouldRender }) => shouldRender)
-            .map(({ component }, index) => component(index + 1))}
+            .map(({ component }, index) => {
+              const Component = component(index + 1);
+              return <Component key={index} />;
+            })}
         </Stack>
       </Modal.Body>
       <Modal.Footer>
