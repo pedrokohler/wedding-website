@@ -49,7 +49,7 @@ export class GiftsService {
     const NODE_ENV = this.configService.get<string>('NODE_ENV', 'production');
 
     if (NODE_ENV === 'local') {
-      this.monitorAndUpdateGiftListRecursive(180_000);
+      // this.monitorAndUpdateGiftListRecursive(180_000);
     }
   }
 
