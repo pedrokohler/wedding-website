@@ -60,7 +60,7 @@ export default function FormInputTypeahead<T extends FieldValues>({
     "blur",
     (e) => {
       e.stopPropagation();
-      setTimeout(() => setIsFocused(false), 100);
+      setTimeout(() => setIsFocused(false), 400);
     },
     containerRef
   );
