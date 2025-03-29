@@ -4,6 +4,8 @@ import { useMediaQuery } from "usehooks-ts";
 
 import { Countdown } from "./Countdown";
 
+const COUNTDOWN_SECTION_DATE_TEXT = import.meta.env.VITE_COUNTDOWN_SECTION_DATE_TEXT;
+
 const CountdownSection = (
   _props: unknown,
   ref: LegacyRef<HTMLHeadingElement> | undefined
@@ -41,7 +43,7 @@ const CountdownSection = (
           alignSelf: "center",
         }}
       >
-        31 de maio de 2025, às 14:30
+        {COUNTDOWN_SECTION_DATE_TEXT}
       </h2>
     </Stack>
   );

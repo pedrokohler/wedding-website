@@ -4,6 +4,13 @@ import { useCopyToClipboard, useMediaQuery } from "usehooks-ts";
 
 import Church from "../../assets/igreja.svg";
 
+const CEREMONY_LOCATION_NAME = import.meta.env.VITE_CEREMONY_LOCATION_NAME;
+const CEREMONY_ADDRESS_LINE_1 = import.meta.env.VITE_CEREMONY_ADDRESS_LINE_1;
+const CEREMONY_ADDRESS_LINE_2 = import.meta.env.VITE_CEREMONY_ADDRESS_LINE_2;
+const RECEPTION_LOCATION_NAME = import.meta.env.VITE_RECEPTION_LOCATION_NAME;
+const RECEPTION_ADDRESS_LINE_1 = import.meta.env.VITE_RECEPTION_ADDRESS_LINE_1;
+const RECEPTION_ADDRESS_LINE_2 = import.meta.env.VITE_RECEPTION_ADDRESS_LINE_2;
+
 const Address = ({
   eventName,
   locationName,
@@ -52,15 +59,15 @@ const OneColumnLocationSection = () => {
     >
       <Address
         eventName="CERIMÔNIA"
-        locationName="Basílica Nossa Senhora de Lourdes"
-        firstLine="Rua da Bahia, 1596"
-        secondLine="Lourdes, Belo Horizonte"
+        locationName={CEREMONY_LOCATION_NAME}
+        firstLine={CEREMONY_ADDRESS_LINE_1}
+        secondLine={CEREMONY_ADDRESS_LINE_2}
       />
       <Address
         eventName="RECEPÇÃO"
-        locationName="Liac eventos"
-        firstLine="Av. Otacílio Negrão de Lima, 7180"
-        secondLine="Bandeirantes (Pampulha)"
+        locationName={RECEPTION_LOCATION_NAME}
+        firstLine={RECEPTION_ADDRESS_LINE_1}
+        secondLine={RECEPTION_ADDRESS_LINE_2}
       />
     </Stack>
   );
@@ -72,17 +79,17 @@ const TwoColumnsLocationSection = () => {
       <Col>
         <Address
           eventName="CERIMÔNIA"
-          locationName="Basílica Nossa Senhora de Lourdes"
-          firstLine="Rua da Bahia, 1596"
-          secondLine="Lourdes, Belo Horizonte"
+          locationName={CEREMONY_LOCATION_NAME}
+          firstLine={CEREMONY_ADDRESS_LINE_1}
+          secondLine={CEREMONY_ADDRESS_LINE_2}
         />
       </Col>
       <Col>
         <Address
           eventName="RECEPÇÃO"
-          locationName="Liac eventos"
-          firstLine="Av. Otacílio Negrão de Lima, 7180"
-          secondLine="Bandeirantes (Pampulha)"
+          locationName={RECEPTION_LOCATION_NAME}
+          firstLine={RECEPTION_ADDRESS_LINE_1}
+          secondLine={RECEPTION_ADDRESS_LINE_2}
         />
       </Col>
     </Row>

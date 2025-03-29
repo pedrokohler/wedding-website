@@ -10,13 +10,15 @@ import { IconButton } from "./IconButton";
 import { convertPriceInCentsToPriceString } from "../utils/price";
 import { TextArea } from "./TextArea";
 
-const bitcoinAddress = "bc1q6zu2cruhn4xaadgtfsjv4d6tfzjgqfuzp86wyd";
+const BITCOIN_ADDRESS = import.meta.env.VITE_BITCOIN_ADDRESS;
+const DELIVERY_ADDRESS = import.meta.env.VITE_DELIVERY_ADDRESS;
+const PIX_KEY = import.meta.env.VITE_PIX_KEY;
+const PIX_NAME = import.meta.env.VITE_PIX_NAME;
+const PIX_CITY = import.meta.env.VITE_PIX_CITY;
+
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function GiftModal({ onHide, show, product }: any) {
-  const [deliveryAddress] = useState(
-    "Av. Cristóvão Colombo, 157, apto. 904, Savassi - Belo Horizonte - 30140-150"
-  );
   const [, copy] = useCopyToClipboard();
   const [pixMessage, setPixMessage] = useState("");
   const [qrCode, setQRCode] = useState("");
@@ -38,9 +40,9 @@ export function GiftModal({ onHide, show, product }: any) {
         .slice(0, 25);
       const pix = QrCodePix({
         version: "01",
-        key: "11807301605",
-        name: "PEDRO HENRIQUE KOHLER MAR",
-        city: "BELO HORIZONTE",
+        key: PIX_KEY,
+        name: PIX_NAME,
+        city:PIX_CITY,
         transactionId,
         message: pixMessage,
         value: product.priceInCents / 100,
@@ -167,10 +169,10 @@ export function GiftModal({ onHide, show, product }: any) {
                   </div>
                   <div style={{ textWrap: "wrap", overflowWrap: "break-word" }}>
                     <span style={{ fontSize: "0.65em" }}>
-                      {deliveryAddress}
+                      {DELIVERY_ADDRESS}
                     </span>
                     <IconButton
-                      onClick={() => copy(deliveryAddress)}
+                      onClick={() => copy(DELIVERY_ADDRESS)}
                       icon={Copy}
                     />
                   </div>
@@ -187,11 +189,11 @@ export function GiftModal({ onHide, show, product }: any) {
                   <div>
                     <b style={{ textWrap: "wrap", overflowWrap: "break-word" }}>
                       <span style={{ fontSize: "0.65em" }}>
-                        {bitcoinAddress}
+                        {BITCOIN_ADDRESS}
                       </span>
                     </b>
                     <IconButton
-                      onClick={() => copy(bitcoinAddress)}
+                      onClick={() => copy(BITCOIN_ADDRESS)}
                       icon={Copy}
                     />
                   </div>
