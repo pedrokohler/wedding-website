@@ -39,7 +39,7 @@ export class GuestsService {
       {
         name: guest.name,
       },
-      { confirmed: true },
+      { name: guest.name + 'confirmado' },
     );
   }
 
@@ -72,7 +72,6 @@ export class GuestsService {
     const matchedInvitations = await this.invitationModel
       .find({
         name: regex,
-        confirmed: false,
       })
       .limit(10);
     return matchedInvitations;

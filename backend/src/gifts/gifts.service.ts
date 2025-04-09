@@ -53,14 +53,14 @@ export class GiftsService {
     filter?: Partial<AmazonProduct>;
     sort?: SortFields;
   }) {
-    const items = await this.getGifts({ limit, skip, filter, sort });
+    const items = this.getGifts({ limit, skip, filter, sort });
     const totalItems = await this.giftModel.countDocuments(filter);
     const currentPage = Math.floor(skip / limit);
     const totalPages = Math.ceil(totalItems / limit) - 1;
     const nextPage = currentPage >= totalPages ? null : currentPage + 1;
 
     return {
-      items,
+      items: Array.isArray(items) ? items : [],
       currentPage,
       totalPages,
       nextPage,

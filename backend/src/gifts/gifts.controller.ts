@@ -20,14 +20,4 @@ export class GiftsController {
   ) {
     return this.giftsService.getPaginatedGifts({ limit, sort, skip });
   }
-
-  // @Post()
-  // monitorGifts() {
-  //   return this.giftsService.monitorAndUpdateGiftList();
-  // }
-
-  // @Get('order')
-  // resetGiftsOrder() {
-  //   return this.giftsService.resetGiftsOrder();
-  // }
 }
