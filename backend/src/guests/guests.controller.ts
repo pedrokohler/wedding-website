@@ -7,7 +7,6 @@ export class GuestsController {
   @Post()
   async createGuest(@Body() guestDto: GuestDto) {
     const savesGuest = await this.guestsService.handleSaveGuest(guestDto);
-    await this.guestsService.sendConfirmationToGroup(guestDto);
     return savesGuest;
   }
 
@@ -15,9 +14,4 @@ export class GuestsController {
   async getInvitations(@Query('name') name: string) {
     return this.guestsService.getInvitations(name);
   }
-
-  // @Get('invitations-create')
-  // async getInvitationsCreate() {
-  //   return this.guestsService.createInvitations();
-  // }
 }

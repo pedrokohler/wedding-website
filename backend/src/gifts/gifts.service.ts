@@ -1,9 +1,8 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { FilterQuery, Model } from 'mongoose';
 import { Gift, GiftDocument } from 'src/schemas/gift.schema';
 import * as cheerio from 'cheerio';
-import { TelegramBotService } from 'src/telegram-bot/telegram-bot.service';
 import { ConfigService } from '@nestjs/config';
 
 type AmazonProduct = {
@@ -30,59 +29,15 @@ export enum SortFields {
 @Injectable()
 export class GiftsService {
   private wishlistUrl: string;
-  private telegramNotificationChannelId: string;
   constructor(
     @InjectModel(Gift.name) private giftModel: Model<Gift>,
-
-    @Inject(forwardRef(() => TelegramBotService))
-    private readonly telegramBotService: TelegramBotService,
     private readonly configService: ConfigService,
   ) {
     this.wishlistUrl = this.configService.get<string>(
       'AMAZON_WISHLIST_URL',
       '',
     );
-    this.telegramNotificationChannelId = this.configService.get<string>(
-      'TELEGRAM_NOTIFICATION_CHANNEL_ID',
-      '',
-    );
-    const NODE_ENV = this.configService.get<string>('NODE_ENV', 'production');
-
-    if (NODE_ENV === 'local') {
-      // this.monitorAndUpdateGiftListRecursive(180_000);
-    }
   }
-
-  // private async updateAllImages() {
-  //   const gifts = await this.getGifts({ limit: 500 });
-
-  //   for (const gift of gifts) {
-  //     if (!gift.productUrl) continue;
-  //     const betterImageUrl = await this.getBetterProductImageUrl(
-  //       gift.productUrl,
-  //     );
-
-  //     if (betterImageUrl && betterImageUrl !== gift.imageUrl) {
-  //       console.log(
-  //         '🚀 ~ GiftsService ~ testThing ~ betterImageUrl && betterImageUrl !== gift.productUrl:',
-  //         betterImageUrl && betterImageUrl !== gift.imageUrl,
-  //       );
-  //       console.log(
-  //         '🚀 ~ GiftsService ~ testThing ~ gift.imageUrl:',
-  //         gift.imageUrl,
-  //       );
-  //       console.log(
-  //         '🚀 ~ GiftsService ~ gifts.forEach ~ betterImageUrl:',
-  //         betterImageUrl,
-  //       );
-  //       await this.giftModel.updateOne(
-  //         { _id: gift._id },
-  //         { $set: { imageUrl: betterImageUrl } },
-  //       );
-  //     }
-  //   }
-  //   console.log('🚀 ~ GiftsService ~ DONE!');
-  // }
 
   private createSearchParam = (itemName: string) =>
     `&itemSearchKeyword=${encodeURIComponent(itemName)}`;
@@ -142,40 +97,6 @@ export class GiftsService {
     return createdGift.save();
   }
 
-  // public async deleteWrongItems() {
-  //   const savedGifts = await this.getGifts({
-  //     limit: 1000,
-  //   });
-
-  //   const promises = savedGifts.map((gift) => {
-  //     if (gift.id) {
-  //       return;
-  //     }
-  //     return this.giftModel.deleteOne({ _id: gift._id });
-  //   });
-
-  //   await Promise.all(promises);
-  // }
-
-  // public async resetGiftsOrder() {
-  //   const savedGifts = await this.getGifts({
-  //     limit: 1000,
-  //   });
-
-  //   savedGifts.forEach((gift, index) => {
-  //     if (gift.manualOrdering) {
-  //       const createdGift = new this.giftModel(Gift);
-  //       createdGift.updateOne({ id: gift.id }, gift);
-  //       return;
-  //     }
-  //     const createdGift = new this.giftModel(Gift);
-  //     createdGift.updateOne(
-  //       { id: gift.id },
-  //       { ...gift, manualOrdering: index },
-  //     );
-  //   });
-  // }
-
   public async searchKeywordForNewProducts(keyword: string) {
     const url = `${this.wishlistUrl}${this.createSearchParam(keyword)}`;
     const items = await this.scrapeList({ url, shouldGetBetterImage: true });
@@ -199,87 +120,6 @@ export class GiftsService {
     });
 
     return newProducts;
-  }
-
-  // public async populateGiftsDb(url: string) {
-  //   const savedGifts = await this.getGifts({ limit: 1000 });
-  //   const alreadySavedIds = savedGifts.map((item) => item.id);
-
-  //   const items = await this.scrapeList({
-  //     url,
-  //     shouldGetBetterImage: true,
-  //   });
-
-  //   items.forEach((item) => {
-  //     if (alreadySavedIds.includes(item.id as string)) {
-  //       return;
-  //     }
-
-  //     this.saveGift(item);
-  //   });
-  // }
-
-  private async monitorAndUpdateGiftListRecursive(interval: number) {
-    await this.monitorAndUpdateGiftList();
-    setTimeout(
-      () => this.monitorAndUpdateGiftListRecursive(interval),
-      interval,
-    );
-  }
-
-  public async monitorAndUpdateGiftList() {
-    const savedGifts = await this.getGifts({
-      limit: 1000,
-      filter: { isActive: true, id: { $exists: true } },
-    });
-
-    for (let i = 0; i < savedGifts.length; i++) {
-      const currentGift = savedGifts[i];
-
-      const url = `${this.wishlistUrl}${this.createSearchParam(currentGift.searchTerm)}`;
-      const [item] = await this.scrapeList({ url });
-      console.debug(
-        '🚀 ~ GiftsService ~ monitorAndUpdateGiftList ~ item:',
-        item,
-      );
-
-      if (!item) {
-        currentGift.isActive = false;
-        console.debug(
-          '🚀 ~ GiftsService ~ monitorAndUpdateGiftList ~ setting currentGift.isActive: false',
-        );
-        await this.telegramBotService.sendMessage({
-          chatId: this.telegramNotificationChannelId,
-          text: `O seguinte item foi retirado da lista:\n\n${JSON.stringify(currentGift, null, 2)}`,
-        });
-        await this.giftModel.findOneAndUpdate(
-          { id: currentGift.id },
-          currentGift,
-        );
-        continue;
-      }
-
-      if (
-        item.priceInCents !== currentGift.priceInCents ||
-        item.name !== currentGift.name
-      ) {
-        console.debug(
-          '🚀 ~ GiftsService ~ monitorAndUpdateGiftList ~ old item.priceInCents:',
-          currentGift.priceInCents,
-        );
-        console.debug(
-          '🚀 ~ GiftsService ~ monitorAndUpdateGiftList ~ new item.name:',
-          currentGift.name,
-        );
-        currentGift.name = item.name as string;
-        currentGift.priceInCents = item.priceInCents;
-        await this.giftModel.findOneAndUpdate(
-          { id: currentGift.id },
-          currentGift,
-        );
-        continue;
-      }
-    }
   }
 
   public async getBetterProductImageUrl(

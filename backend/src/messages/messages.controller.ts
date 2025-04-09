@@ -7,7 +7,6 @@ export class MessagesController {
 
   @Post()
   async createMessage(@Body() messageDto: MessageDto) {
-    await this.messagesService.sendMessageToGroup(messageDto);
     const savedMessage = await this.messagesService.saveMessage(messageDto);
     return savedMessage;
   }

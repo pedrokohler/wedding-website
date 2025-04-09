@@ -1,15 +1,15 @@
 import { Route } from "react-router-dom";
+import { Routes } from "react-router";
 import { HomePage } from "./Pages/Home";
 import { GiftsPage } from "./Pages/Gifts";
-import { SentryRoutes } from "./sentry";
 
 function App() {
   return (
     <>
-      <SentryRoutes>
+      <Routes>
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/presentes" element={<GiftsPage />} />
-      </SentryRoutes>
+      </Routes>
     </>
   );
 }

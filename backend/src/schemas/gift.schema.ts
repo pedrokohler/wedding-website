@@ -5,9 +5,6 @@ export type GiftDocument = HydratedDocument<Gift>;
 
 @Schema()
 export class Gift {
-  // @Prop()
-  // _id: Types.ObjectId;
-
   @Prop()
   id: string;
 
