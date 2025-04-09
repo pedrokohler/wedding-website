@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Guest } from 'src/schemas/guest.schema';
-import { Invitation } from 'src/schemas/invititations.schema';
+import { Invitation } from 'src/schemas/invitations.schema';
 import { TelegramBotService } from 'src/telegram-bot/telegram-bot.service';
 export type GuestDto = {
   name: string;

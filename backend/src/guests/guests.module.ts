@@ -4,7 +4,7 @@ import { GuestsService } from './guests.service';
 import { TelegramBotModule } from 'src/telegram-bot/telegram-bot.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Guest, GuestSchema } from 'src/schemas/guest.schema';
-import { Invitation, InvitationSchema } from 'src/schemas/invititations.schema';
+import { Invitation, InvitationSchema } from 'src/schemas/invitations.schema';
 
 @Module({
   imports: [
