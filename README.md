@@ -1,6 +1,7 @@
 # Wedding website
 
-See the [live version](https://winnyepedro.site/)
+
+~See the [live version](https://winnyepedro.site/)~
 
 This is the React website I created for my own wedding. I decided to build it because I didn't want to pay fees on the gifts we received.
 
